@@ -40,7 +40,7 @@ export class EditComponent implements OnInit {
       'todoName': new FormControl(this.activeTodo.todoName, Validators.required),
       'todoType': new FormControl(this.activeTodo.todoType, Validators.required),
       'todoImage': new FormControl(this.activeTodo.todoImage, Validators.required),
-      'imageQuery': new FormControl('', Validators.required)
+      'imageQuery': new FormControl('')
     })
   }
   onSubmit(){
