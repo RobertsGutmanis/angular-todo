@@ -55,6 +55,9 @@ export class EditComponent implements OnInit {
         value.photos.forEach((photo: PhotosReponse)=>{
           this.availableImages.push(photo.src.original)
         })
+     },
+     error: error =>{
+      this.snackBar.open(error, 'Close')
      }
     });
   }

@@ -16,6 +16,7 @@ export class AddtodoComponent implements OnInit {
   availableImages: string[] = []
   activeImage: string = ""
   hasSelected = false;
+  searching = false;
   constructor(private snackBar: MatSnackBar, private imageService: ImageService, private localStorage: LocalstorageService) { }
 
   ngOnInit(): void {
@@ -39,7 +40,8 @@ export class AddtodoComponent implements OnInit {
     }
   }
   onSubmitImage(){
-    console.log(this.todoFormGroup.value.imageFormGroup.image)
+    this.searching = true
+    console.log(this.searching)
     this.imageService.fetchImages(this.todoFormGroup.value.imageFormGroup.image).subscribe({
       next: value => {
         if(value.total_results == 0){
@@ -48,6 +50,9 @@ export class AddtodoComponent implements OnInit {
         value.photos.forEach((photo: PhotosReponse)=>{
           this.availableImages.push(photo.src.original)
         })
+      },
+      error: error=>{
+        this.snackBar.open(error, 'Close')
       }
     })
   }

@@ -26,7 +26,7 @@
                 <mat-label>Image query</mat-label>
                 <input matInput formControlName="imageQuery">
             </mat-form-field>
-            <button type="button" mat-flat-button class="btn btn-secondary" (click)="onSearch()">
+            <button type="button" mat-flat-button class="btn btn-secondary" *ngIf="availableImages.length==0" (click)="onSearch()">
                 Search for an image!
             </button>
 
