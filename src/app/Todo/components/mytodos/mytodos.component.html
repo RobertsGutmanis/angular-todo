@@ -2,15 +2,15 @@
   <h1>My todos!</h1>
 
   <mat-form-field style="width: 30%;">
-    <mat-label>Serach todos</mat-label>
+    <mat-label>Search todos</mat-label>
     <input matInput (input)="onSearchTodo($event)">
   </mat-form-field>
 
   <h3>Filter by type:</h3>
   <span class="filter-section" style="margin-bottom: 1rem;">
-    <mat-checkbox>Type1</mat-checkbox>
-    <mat-checkbox>Type2</mat-checkbox>
-    <mat-checkbox>Type3</mat-checkbox>
+    <mat-checkbox (click)="onFilter('type1')">Type1</mat-checkbox>
+    <mat-checkbox (click)="onFilter('type2')">Type2</mat-checkbox>
+    <mat-checkbox (click)="onFilter('type3')">Type3</mat-checkbox>
   </span>
 
   <mat-card *ngFor="let todo of myTodos; let i = index"  class="example-card">
@@ -21,7 +21,7 @@
     </mat-card-header>
     <mat-card-actions>
       <button (click)="onDeleteTodo(i)"mat-button class="btn btn-danger">DELETE TODO</button>
-      <button (click)="onEditTodo()"mat-button class="btn btn-primary" routerLink="edittodo">EDIT TODO</button>
+      <a (click)="onEditTodo()"mat-button class="btn btn-primary">EDIT TODO</a>
     </mat-card-actions>
   </mat-card>
 

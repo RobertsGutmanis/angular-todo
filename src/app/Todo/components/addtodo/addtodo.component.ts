@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ImageService} from "../../services/image.service";
-import {ImageResponse} from "../../Interfaces/image-response.interface";
 import {PhotosReponse} from "../../Interfaces/photos-response.interface";
 import {Todo} from "../../Interfaces/Todo.interface";
 import {LocalstorageService} from "../../services/localstorage.service";

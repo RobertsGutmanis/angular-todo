@@ -14,12 +14,16 @@ import { MytodosComponent } from './components/mytodos/mytodos.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {AppRoutingModule} from "../app-routing.module";
+import { EditComponent } from './components/edit/edit.component';
+import { TodosComponent } from './components/todos/todos.component';
 
 @NgModule({
   declarations: [
 
     AddtodoComponent,
-     MytodosComponent
+     MytodosComponent,
+     EditComponent,
+     TodosComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +38,7 @@ import {AppRoutingModule} from "../app-routing.module";
     MatTabsModule,
     AddtodoComponent,
     MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, FormsModule,
-    ReactiveFormsModule, MatSnackBarModule, MytodosComponent, MatCardModule, MatCheckboxModule
+    ReactiveFormsModule, MatSnackBarModule, MytodosComponent, MatCardModule, MatCheckboxModule, TodosComponent
   ],
   providers: [],
 })
