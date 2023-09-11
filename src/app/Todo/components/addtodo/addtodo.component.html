@@ -1,0 +1,42 @@
+<form class="todo-form" (ngSubmit)="onSubmit()" [formGroup]="todoFormGroup">
+  <h1>Add todo!</h1>
+  <mat-form-field style="width: 30%">
+    <mat-label>Todo name</mat-label>
+    <input matInput formControlName='name'>
+  </mat-form-field>
+
+  <mat-form-field style="width: 30%">
+    <mat-label>Todo type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option value="type1">Type 1</mat-option>
+      <mat-option value="type2">Type 2</mat-option>
+      <mat-option value="type3">Type 3</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <form class="image-form" formGroupName="imageFormGroup" (ngSubmit)="onSubmitImage()" *ngIf="activeImage==''">
+    <mat-form-field style="width: 30%">
+      <mat-label>Image query</mat-label>
+      <input matInput formControlName="image">
+    </mat-form-field>
+    <button type="submit" mat-flat-button class="btn btn-secondary">
+      Search for an image!
+    </button>
+
+    <div class="image-grid" *ngIf="availableImages.length>0">
+      <img src="{{image}}" *ngFor="let image of availableImages" class="image" (click)="hasSelectedImage(image)">
+    </div>
+
+  </form>
+  <div *ngIf="activeImage!=''" class="image-form" >
+    <img src="{{activeImage}}" class="active-image">
+    <button (click)="onChangeImage()" type="submit" mat-stroked-button class="btn btn-warning">
+      Change image
+    </button>
+  </div>
+  <button type="submit" mat-stroked-button class="btn btn-success">
+    Add todo
+  </button>
+</form>
+

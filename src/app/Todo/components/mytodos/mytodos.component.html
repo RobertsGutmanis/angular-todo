@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>My todos!</h1>
+
+  <mat-form-field style="width: 30%;">
+    <mat-label>Serach todos</mat-label>
+    <input matInput (input)="onSearchTodo($event)">
+  </mat-form-field>
+
+  <h3>Filter by type:</h3>
+  <span class="filter-section" style="margin-bottom: 1rem;">
+    <mat-checkbox>Type1</mat-checkbox>
+    <mat-checkbox>Type2</mat-checkbox>
+    <mat-checkbox>Type3</mat-checkbox>
+  </span>
+
+  <mat-card *ngFor="let todo of myTodos; let i = index"  class="example-card">
+    <mat-card-header>
+      <img mat-card-avatar class="example-header-image" src="{{todo.todoImage}}">
+      <mat-card-title>{{todo.todoName}}</mat-card-title>
+      <mat-card-subtitle>{{todo.todoType}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button (click)="onDeleteTodo(i)"mat-button class="btn btn-danger">DELETE TODO</button>
+      <button (click)="onEditTodo()"mat-button class="btn btn-primary" routerLink="edittodo">EDIT TODO</button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>
