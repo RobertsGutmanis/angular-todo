@@ -28,13 +28,14 @@ export class EditComponent implements OnInit {
 
     try{
       this.storageService.getOneTodo(+this.index)
+      if(+this.index>=0){
+        this.activeTodo = this.storageService.getOneTodo(+this.index)
+        this.todoImage = this.activeTodo.todoImage
+      }
     }catch(error){
       this.router.navigate(['/'])
     }
-    if(+this.index>=0){
-      this.activeTodo = this.storageService.getOneTodo(+this.index)
-      this.todoImage = this.activeTodo.todoImage
-    }
+  
     this.editFromGroup = new FormGroup({
       'todoName': new FormControl(this.activeTodo.todoName, Validators.required),
       'todoType': new FormControl(this.activeTodo.todoType, Validators.required),
