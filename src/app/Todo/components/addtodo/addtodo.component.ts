@@ -16,7 +16,6 @@ export class AddtodoComponent implements OnInit {
   availableImages: string[] = []
   activeImage: string = ""
   hasSelected = false;
-  searching = false;
   constructor(private snackBar: MatSnackBar, private imageService: ImageService, private localStorage: LocalstorageService) { }
 
   ngOnInit(): void {
@@ -36,12 +35,11 @@ export class AddtodoComponent implements OnInit {
       const todo: Todo = {todoName: this.todoFormGroup.value.name, todoType: this.todoFormGroup.value.type, todoImage: this.todoFormGroup.value.imageFormGroup.image}
       this.localStorage.storeTodo(todo)
       this.todoFormGroup.reset()
+      console.log(this.todoFormGroup)
       this.activeImage = ""
     }
   }
   onSubmitImage(){
-    this.searching = true
-    console.log(this.searching)
     this.imageService.fetchImages(this.todoFormGroup.value.imageFormGroup.image).subscribe({
       next: value => {
         if(value.total_results == 0){
@@ -52,7 +50,7 @@ export class AddtodoComponent implements OnInit {
         })
       },
       error: error=>{
-        this.snackBar.open(error, 'Close')
+        this.snackBar.open(error.error.code, 'Close')
       }
     })
   }

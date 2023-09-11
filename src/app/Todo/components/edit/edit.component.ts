@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LocalstorageService } from '../../services/localstorage.service';
 import { Todo } from '../../Interfaces/Todo.interface';
 import {MatSnackBar} from "@angular/material/snack-bar";
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImageService } from '../../services/image.service';
 import { PhotosReponse } from '../../Interfaces/photos-response.interface';
 
@@ -26,21 +26,30 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
 
+    try{
+      this.storageService.getOneTodo(+this.index)
+    }catch(error){
+      this.router.navigate(['/'])
+    }
     if(+this.index>=0){
       this.activeTodo = this.storageService.getOneTodo(+this.index)
       this.todoImage = this.activeTodo.todoImage
     }
     this.editFromGroup = new FormGroup({
-      'todoName': new FormControl(this.activeTodo.todoName),
-      'todoType': new FormControl(this.activeTodo.todoType),
-      'todoImage': new FormControl(this.activeTodo.todoImage),
-      'imageQuery': new FormControl('')
+      'todoName': new FormControl(this.activeTodo.todoName, Validators.required),
+      'todoType': new FormControl(this.activeTodo.todoType, Validators.required),
+      'todoImage': new FormControl(this.activeTodo.todoImage, Validators.required),
+      'imageQuery': new FormControl('', Validators.required)
     })
   }
   onSubmit(){
-    const updatedTodo = this.editFromGroup.value
-    this.storageService.updateTodo(updatedTodo, +this.index);
-    this.router.navigateByUrl('/')
+    if(this.editFromGroup.status !="INVALID"){
+      const updatedTodo = this.editFromGroup.value
+      this.storageService.updateTodo(updatedTodo, +this.index);
+      this.router.navigateByUrl('/')
+    }else{
+      this.snackBar.open("Invalid form", 'Close')
+    }
   }
   onDelete(){
     this.storageService.deleteTodo(+this.index)
@@ -57,7 +66,8 @@ export class EditComponent implements OnInit {
         })
      },
      error: error =>{
-      this.snackBar.open(error, 'Close')
+      console.log(error)
+      this.snackBar.open(error.error.code, 'Close')
      }
     });
   }
