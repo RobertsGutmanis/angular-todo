@@ -6,7 +6,7 @@ import {TodosComponent} from "./Todo/components/todos/todos.component";
 
 const routes: Routes = [
   {path: '', component: TodosComponent, pathMatch: 'full'},
-  {path: 'edit', component: EditComponent, pathMatch: 'full'}
+  {path: 'edit/:id', component: EditComponent, pathMatch: 'full'}
 ];
 
 @NgModule({

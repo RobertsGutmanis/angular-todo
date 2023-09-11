@@ -24,10 +24,19 @@ export class LocalstorageService{
   getTodos(): Todo[]{
     return JSON.parse(localStorage.getItem("todos") ?? "")
   }
+  getOneTodo(index: number): Todo{
+    const todos = JSON.parse(localStorage.getItem('todos') ?? '')
+    return todos[index]
+  }
   deleteTodo(index: number){
     const todos = this.getTodos()
     todos.splice(index, 1)
     localStorage.setItem("todos", JSON.stringify(todos))
     this.todoSubject.next(this.getTodos())
+  }
+  updateTodo(todo: Todo, index: number){
+    const todos = this.getTodos()
+    todos[index] = todo;
+    localStorage.setItem("todos", JSON.stringify(todos));
   }
 }

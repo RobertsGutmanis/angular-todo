@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Todo} from "../../Interfaces/Todo.interface";
 import {LocalstorageService} from "../../services/localstorage.service";
-import {FormControl, FormGroup} from "@angular/forms";
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-mytodos',
@@ -11,10 +11,12 @@ import {FormControl, FormGroup} from "@angular/forms";
 export class MytodosComponent implements OnInit {
   myTodos: Todo[] = []
   filters:string[] = []
-  constructor(private localStorage: LocalstorageService) { }
+  constructor(private localStorage: LocalstorageService, private router: Router) { }
 
   ngOnInit(): void {
-    this.myTodos = this.localStorage.getTodos()
+    if(localStorage.getItem("todos")){
+      this.myTodos = this.localStorage.getTodos()
+    }
     this.localStorage.todoSubject.subscribe({
       next: newTodos =>{
         this.myTodos = newTodos
@@ -24,8 +26,8 @@ export class MytodosComponent implements OnInit {
   onDeleteTodo(index: number){
   this.localStorage.deleteTodo(index);
   }
-  onEditTodo(){
-
+  onEditTodo(index: number){
+    this.router.navigate(['/edit', index])
   }
   onSearchTodo(data:any){
     this.myTodos = this.localStorage.getTodos()

@@ -1,0 +1,25 @@
+.example-card {
+    max-width: 400px;
+  }
+  
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.card-image{
+    height: 400px;
+}
+.image-grid{
+    width: 355px;
+  }
+  .image{
+    cursor: pointer;
+    height: 118px;
+    width: 118px;
+    transition: all .3s;
+  }
+  .image:hover{
+    transform: scale(1.06);
+  }
