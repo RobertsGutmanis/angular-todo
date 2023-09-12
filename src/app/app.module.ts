@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {TodoModule} from "./Todo/todo.module";
 
@@ -15,7 +14,6 @@ import {TodoModule} from "./Todo/todo.module";
     BrowserModule,
     TodoModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
     BrowserAnimationsModule
   ],
   providers: [],

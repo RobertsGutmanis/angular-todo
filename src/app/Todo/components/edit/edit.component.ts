@@ -63,7 +63,7 @@ export class EditComponent implements OnInit {
           this.snackBar.open('No images were found', 'Close');
         }
         value.photos.forEach((photo: PhotosReponse)=>{
-          this.availableImages.push(photo.src.original)
+          this.availableImages.push(photo.src.tiny)
         })
      },
      error: error =>{

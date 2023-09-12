@@ -13,9 +13,9 @@ import {HttpClientModule} from "@angular/common/http";
 import { MytodosComponent } from './components/mytodos/mytodos.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {AppRoutingModule} from "../app-routing.module";
 import { EditComponent } from './components/edit/edit.component';
 import { TodosComponent } from './components/todos/todos.component';
+import { TodoRoutingModule } from "./todo.routing.module";
 
 @NgModule({
   declarations: [
@@ -27,11 +27,10 @@ import { TodosComponent } from './components/todos/todos.component';
   ],
   imports: [
     CommonModule,
-    StoreModule.forRoot({}, {}),
     MatTabsModule,
     HttpClientModule,
     MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, FormsModule,
-    ReactiveFormsModule, MatSnackBarModule, MatCardModule, MatCheckboxModule, AppRoutingModule
+    ReactiveFormsModule, MatSnackBarModule, MatCardModule, MatCheckboxModule, TodoRoutingModule
   ],
   exports: [
     StoreModule,
