@@ -27,6 +27,8 @@ export class AddtodoComponent implements OnInit {
       type: new FormControl('', Validators.required)
     })
   }
+
+  //Submits add todo form
   onSubmit(){
     if(this.todoFormGroup.status == "INVALID" || !this.hasSelected){
       this.snackBar.open('Invalid todo form', 'Close');
@@ -39,6 +41,7 @@ export class AddtodoComponent implements OnInit {
       this.activeImage = ""
     }
   }
+  //Fetches images after user enters search query and clicks search button
   onSubmitImage(){
     this.imageService.fetchImages(this.todoFormGroup.value.imageFormGroup.image).subscribe({
       next: value => {
@@ -54,12 +57,16 @@ export class AddtodoComponent implements OnInit {
       }
     })
   }
+
+  //Updates UI after user chooses an image
   hasSelectedImage(image: string){
     this.hasSelected = true;
     this.availableImages = []
     this.activeImage = image;
     this.todoFormGroup.value.imageFormGroup.image = image;
   }
+
+  //Updates UI after user click change image
   onChangeImage(){
     this.activeImage = ""
   }

@@ -25,7 +25,7 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    //Sends user back to '/' if edit page doesnt exist
     try{
       this.storageService.getOneTodo(+this.index)
       if(+this.index>=0){
@@ -35,7 +35,7 @@ export class EditComponent implements OnInit {
     }catch(error){
       this.router.navigate(['/'])
     }
-  
+
     this.editFromGroup = new FormGroup({
       'todoName': new FormControl(this.activeTodo.todoName, Validators.required),
       'todoType': new FormControl(this.activeTodo.todoType, Validators.required),
@@ -43,6 +43,8 @@ export class EditComponent implements OnInit {
       'imageQuery': new FormControl('')
     })
   }
+
+  //Submits edited todo
   onSubmit(){
     if(this.editFromGroup.status !="INVALID"){
       const updatedTodo = this.editFromGroup.value
@@ -52,10 +54,14 @@ export class EditComponent implements OnInit {
       this.snackBar.open("Invalid form", 'Close')
     }
   }
+
+  //Deletes todo from edit page
   onDelete(){
     this.storageService.deleteTodo(+this.index)
     this.router.navigateByUrl('/')
   }
+
+  //Searches for images after query input
   onSearch(){
     this.imageService.fetchImages(this.editFromGroup.value.imageQuery).subscribe({
       next: value =>{
@@ -72,6 +78,8 @@ export class EditComponent implements OnInit {
      }
     });
   }
+
+  //Updates UI after user chose an image
   hasSelectedImage(image: string){
     this.editFromGroup.value.todoImage = image
     this.todoImage = this.editFromGroup.value.todoImage

@@ -16,6 +16,7 @@ export class ImageService{
 
   constructor(private http: HttpClient) { }
 
+  // Fetch 9 images from pexels API
   fetchImages(query: string): Observable<any>{
     return this.http.get<ImageResponse>(`https://api.pexels.com/v1/search?query=${query}&per_page=9`, httpOption)
   }

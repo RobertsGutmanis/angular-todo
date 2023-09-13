@@ -23,23 +23,33 @@ export class MytodosComponent implements OnInit {
       }
     })
   }
+  // Delete function on delete button click
   onDeleteTodo(index: number){
   this.localStorage.deleteTodo(index);
   }
+
+  //Edit function on edit button click
   onEditTodo(index: number){
     this.router.navigate(['/edit', index])
   }
+
+  //Searches for todos on search input
   onSearchTodo(data:any){
     this.myTodos = this.localStorage.getTodos()
     const filteredTodos: Todo[] = this.myTodos.filter((todo)=>todo.todoName.includes(data.target.value))
     this.myTodos = filteredTodos
   }
+
+  //FIlters todos on checbox input
   onFilter(type: string){
+    //Checks if filter is active
     if(this.filters.indexOf(type)>=0){
      this.filters.splice(this.filters.indexOf(type), 1)
     }else{
       this.filters.push(type)
     }
+
+    //DIsplays filtered todos
     if(this.filters.length===0) {
       this.myTodos = this.localStorage.getTodos()
     }else{
