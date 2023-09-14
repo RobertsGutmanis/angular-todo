@@ -1,4 +1,4 @@
-<form class="todo-form" (ngSubmit)="onSubmit()" [formGroup]="todoFormGroup">
+<form class="todo-form" (ngSubmit)="onSubmit()" [formGroup]="todoFormGroup" #formDirective="ngForm" >
   <h1>Add todo!</h1>
   <mat-form-field style="width: 30%">
     <mat-label>Todo name</mat-label>
@@ -15,7 +15,7 @@
   </mat-form-field>
 
 
-  <form class="image-form" formGroupName="imageFormGroup" (ngSubmit)="onSubmitImage()" *ngIf="activeImage==''">
+  <form class="image-form" formGroupName="imageFormGroup" (ngSubmit)="onSubmitImage()" *ngIf="hasNoActiveImage">
     <mat-form-field style="width: 30%">
       <mat-label>Image query</mat-label>
       <input matInput formControlName="image">
@@ -29,13 +29,13 @@
     </div>
 
   </form>
-  <div *ngIf="activeImage!=''" class="image-form" >
+  <div *ngIf="!hasNoActiveImage" class="image-form" >
     <img src="{{activeImage}}" class="active-image">
     <button (click)="onChangeImage()" type="submit" mat-stroked-button class="btn btn-warning">
       Change image
     </button>
   </div>
-  <button type="submit" mat-stroked-button class="btn btn-success">
+  <button type="submit" mat-stroked-button class="btn btn-success" *ngIf="availableImages.length===0">
     Add todo
   </button>
 </form>

@@ -3,7 +3,7 @@
 
   <mat-form-field style="width: 30%;">
     <mat-label>Search todos</mat-label>
-    <input matInput (input)="onSearchTodo($event)">
+    <input matInput (input)="onSearchTodo($event)" id="searchInput">
   </mat-form-field>
 
   <h3>Filter by type:</h3>
@@ -21,7 +21,7 @@
     </mat-card-header>
     <mat-card-actions>
       <button (click)="onDeleteTodo(i)"mat-button class="btn btn-danger">DELETE TODO</button>
-      <a (click)="onEditTodo(i)"mat-button class="btn btn-primary">EDIT TODO</a>
+      <a (click)="onEditTodo(i)" mat-button class="btn btn-primary editButton">EDIT TODO</a>
     </mat-card-actions>
   </mat-card>
 

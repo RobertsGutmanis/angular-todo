@@ -15,15 +15,18 @@ import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { EditComponent } from './components/edit/edit.component';
 import { TodosComponent } from './components/todos/todos.component';
-import { TodoRoutingModule } from "./todo.routing.module";
+import { TodoRoutingModule } from "./todo-routing.module";
+import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-delete.component';
+import {ImageService} from "./services/image.service";
+import {LocalstorageService} from "./services/localstorage.service";
 
 @NgModule({
   declarations: [
-
     AddtodoComponent,
      MytodosComponent,
      EditComponent,
-     TodosComponent
+     TodosComponent,
+     ConfirmDeleteComponent,
   ],
   imports: [
     CommonModule,
@@ -36,9 +39,9 @@ import { TodoRoutingModule } from "./todo.routing.module";
     StoreModule,
     MatTabsModule,
     AddtodoComponent,
-    MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, FormsModule,
+    MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, FormsModule, TodoRoutingModule,
     ReactiveFormsModule, MatSnackBarModule, MytodosComponent, MatCardModule, MatCheckboxModule, TodosComponent
   ],
-  providers: [],
+  providers: [ImageService, LocalstorageService],
 })
 export class TodoModule{ }

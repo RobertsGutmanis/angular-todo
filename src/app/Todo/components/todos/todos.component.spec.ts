@@ -1,25 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TodosComponent } from './todos.component';
+describe("first test", ()=>{
 
-describe('TodosComponent', () => {
-  let component: TodosComponent;
-  let fixture: ComponentFixture<TodosComponent>;
+  beforeEach(async ()=>{
+    localStorage.setItem('todos', JSON.stringify([{todoName: "test", todoType: "type2", todoImage: "TEST"}]))
+  })
+  it("should get todos from localstorage", ()=>{
+    const component = TestBed.createComponent(TodosComponent)
+    const todos = localStorage.getItem("todos")
+    expect(todos).toBeTruthy()
+  })
+})
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ TodosComponent ]
-    })
-    .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TodosComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});

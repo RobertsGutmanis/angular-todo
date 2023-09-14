@@ -1,17 +1,15 @@
-import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ImageResponse} from "../Interfaces/image-response.interface";
 import {Observable} from "rxjs";
+import {Injectable} from "@angular/core";
+import {TodoModule} from "../todo.module";
 
 const httpOption = {
   headers: new HttpHeaders({
     'Authorization': 'TzAPTpVgBpPm1c5vz5nZ0skEGsjdDipQteTMbcJ3rmZt6elRD1QeUgAO',
   })
 }
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ImageService{
 
   constructor(private http: HttpClient) { }

@@ -21,7 +21,7 @@
                 </mat-select>
             </mat-form-field>
             <br>
-            
+
             <mat-form-field style="width: 100%">
                 <mat-label>Image query</mat-label>
                 <input matInput formControlName="imageQuery">
@@ -35,7 +35,7 @@
             </div>
 
         </mat-card-content>
-        <mat-card-actions>
+        <mat-card-actions *ngIf="availableImages.length===0">
           <button type="submit" mat-button class="btn btn-success">Save changes</button>
           <button type="button" (click)="onDelete()" mat-button class="btn btn-danger">Delete todo</button>
         </mat-card-actions>

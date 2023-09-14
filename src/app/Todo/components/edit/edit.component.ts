@@ -65,7 +65,7 @@ export class EditComponent implements OnInit {
   onSearch(){
     this.imageService.fetchImages(this.editFromGroup.value.imageQuery).subscribe({
       next: value =>{
-        if(value.total_results == 0){
+        if(value.total_results === 0){
           this.snackBar.open('No images were found', 'Close');
         }
         value.photos.forEach((photo: PhotosReponse)=>{

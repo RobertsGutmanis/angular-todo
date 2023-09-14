@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ImageService} from "../../services/image.service";
 import {PhotosReponse} from "../../Interfaces/photos-response.interface";
 import {Todo} from "../../Interfaces/Todo.interface";
 import {LocalstorageService} from "../../services/localstorage.service";
+import {ImageResponse} from "../../Interfaces/image-response.interface";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-addtodo',
@@ -36,23 +38,22 @@ export class AddtodoComponent implements OnInit {
     else{
       const todo: Todo = {todoName: this.todoFormGroup.value.name, todoType: this.todoFormGroup.value.type, todoImage: this.todoFormGroup.value.imageFormGroup.image}
       this.localStorage.storeTodo(todo)
-      this.todoFormGroup.reset()
-      console.log(this.todoFormGroup)
       this.activeImage = ""
+      this.todoFormGroup.setValue({name: [], imageFormGroup: {image: null}, type: null})
     }
   }
   //Fetches images after user enters search query and clicks search button
   onSubmitImage(){
-    this.imageService.fetchImages(this.todoFormGroup.value.imageFormGroup.image).subscribe({
-      next: value => {
-        if(value.total_results == 0){
+    this.imageService.fetchImages<ImageResponse>(this.todoFormGroup.value.imageFormGroup.image).subscribe({
+      next: (value: ImageResponse)=> {
+        if(value.total_results === 0){
           this.snackBar.open('No images were found', 'Close');
         }
         value.photos.forEach((photo: PhotosReponse)=>{
           this.availableImages.push(photo.src.tiny)
         })
       },
-      error: error=>{
+      error: (error: HttpErrorResponse)=>{
         this.snackBar.open(error.error.code, 'Close')
       }
     })
@@ -70,4 +71,5 @@ export class AddtodoComponent implements OnInit {
   onChangeImage(){
     this.activeImage = ""
   }
+  public get hasNoActiveImage(): boolean { return this.activeImage === ""; }
 }

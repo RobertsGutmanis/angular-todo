@@ -7,7 +7,7 @@ const routes: Routes = [
     {path: '', component: TodosComponent},
     {path: 'edit/:id', component: EditComponent}
   ];
-  
+
   @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]

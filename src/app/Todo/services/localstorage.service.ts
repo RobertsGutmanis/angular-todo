@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Todo} from "../Interfaces/Todo.interface";
 import {BehaviorSubject, Subject} from "rxjs";
+import {TodoModule} from "../todo.module";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LocalstorageService{
   allTodos: Todo[] = []
   todoSubject: Subject<Todo[]> = new Subject<Todo[]>()

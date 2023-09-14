@@ -42,9 +42,10 @@ export class MytodosComponent implements OnInit {
 
   //FIlters todos on checbox input
   onFilter(type: string){
+    let indexOfType = this.filters.indexOf(type)
     //Checks if filter is active
-    if(this.filters.indexOf(type)>=0){
-     this.filters.splice(this.filters.indexOf(type), 1)
+    if(indexOfType>=0){
+     this.filters.splice(indexOfType, 1)
     }else{
       this.filters.push(type)
     }
