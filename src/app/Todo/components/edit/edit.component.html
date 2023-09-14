@@ -41,3 +41,4 @@
         </mat-card-actions>
       </mat-card>
 </form>
+<app-confirm-delete (closeModal)="closeModal($event)" *ngIf="showModal" [todo]="[activeTodo, +index]"></app-confirm-delete>

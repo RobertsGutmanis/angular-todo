@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ImageService} from "../../services/image.service";
@@ -14,6 +14,7 @@ import {HttpErrorResponse} from "@angular/common/http";
   styleUrls: ['./addtodo.component.css']
 })
 export class AddtodoComponent implements OnInit {
+  @Output() changeTab: EventEmitter<number> = new EventEmitter()
   todoFormGroup!: FormGroup;
   availableImages: string[] = []
   activeImage: string = ""
@@ -39,12 +40,13 @@ export class AddtodoComponent implements OnInit {
       const todo: Todo = {todoName: this.todoFormGroup.value.name, todoType: this.todoFormGroup.value.type, todoImage: this.todoFormGroup.value.imageFormGroup.image}
       this.localStorage.storeTodo(todo)
       this.activeImage = ""
-      this.todoFormGroup.setValue({name: [], imageFormGroup: {image: null}, type: null})
+      this.changeTab.emit(0)
+      this.todoFormGroup.setValue({name: ' ', imageFormGroup: {image: ' '}, type: ' '})
     }
   }
   //Fetches images after user enters search query and clicks search button
   onSubmitImage(){
-    this.imageService.fetchImages<ImageResponse>(this.todoFormGroup.value.imageFormGroup.image).subscribe({
+    this.imageService.fetchImages(this.todoFormGroup.value.imageFormGroup.image).subscribe({
       next: (value: ImageResponse)=> {
         if(value.total_results === 0){
           this.snackBar.open('No images were found', 'Close');

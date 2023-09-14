@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalstorageService } from '../../services/localstorage.service';
 import { Todo } from '../../Interfaces/Todo.interface';
@@ -6,6 +6,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImageService } from '../../services/image.service';
 import { PhotosReponse } from '../../Interfaces/photos-response.interface';
+import { throws } from 'assert';
 
 @Component({
   selector: 'app-edit',
@@ -13,7 +14,9 @@ import { PhotosReponse } from '../../Interfaces/photos-response.interface';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
+  // @Output() toggleModal: EventEmitter<ModalData> = new EventEmitter()
   activeTodo!: Todo;
+  showModal: boolean = false;
   editFromGroup!: FormGroup;
   index: string = '';
   availableImages: string[] = []
@@ -57,8 +60,12 @@ export class EditComponent implements OnInit {
 
   //Deletes todo from edit page
   onDelete(){
-    this.storageService.deleteTodo(+this.index)
-    this.router.navigateByUrl('/')
+    // this.storageService.deleteTodo(+this.index)
+    // this.router.navigateByUrl('/')
+    this.showModal = true;
+  }
+  closeModal(event: boolean){
+    this.showModal = event
   }
 
   //Searches for images after query input

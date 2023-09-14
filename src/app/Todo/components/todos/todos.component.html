@@ -1,9 +1,10 @@
-<mat-tab-group mat-stretch-tabs mat-align-tabs="center">
+<mat-tab-group mat-stretch-tabs mat-align-tabs="center" [(selectedIndex)]="selectedTab">
   <mat-tab label="My todos">
-    <app-mytodos></app-mytodos>
+    <app-mytodos (toggleMoal)="toggleModal($event)"></app-mytodos>
   </mat-tab>
     <app-mytodos></app-mytodos>
   <mat-tab label="Add todo">
-    <app-addtodo></app-addtodo>
+    <app-addtodo (changeTab)="changeTab($event)"></app-addtodo>
   </mat-tab>
 </mat-tab-group>
+<app-confirm-delete (closeModal)="closeModal($event)" *ngIf="showModal" [todo]="toDeleteTodo"></app-confirm-delete>

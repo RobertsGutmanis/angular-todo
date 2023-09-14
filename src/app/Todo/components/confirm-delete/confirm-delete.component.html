@@ -1,1 +1,19 @@
-<p>confirm-delete works!</p>
+<div class="confirm-modal">
+    <div class="confirm-box">
+        <div class="top-bar">
+            <button style="margin: 10px 10px 0 0;" class="btn btn-danger" (click)="onCloseModal()">Close!</button>
+        </div>
+        <div class="modal-content">
+            <h2>You are about to delete</h2>
+            <mat-card-header style="transform: scale(2); margin-top: 50px;">
+                <img mat-card-avatar class="example-header-image" src="{{todo[0].todoImage}}">
+                <mat-card-title>{{todo[0].todoName}}</mat-card-title>
+                <mat-card-subtitle>{{todo[0].todoType}}</mat-card-subtitle>
+            </mat-card-header>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+            <button class="btn btn-secondary" (click)="onCloseModal()">Cancel</button>
+        </div>
+    </div>
+</div>

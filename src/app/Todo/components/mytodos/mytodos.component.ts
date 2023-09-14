@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import {Todo} from "../../Interfaces/Todo.interface";
 import {LocalstorageService} from "../../services/localstorage.service";
 import {  Router } from '@angular/router';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-mytodos',
@@ -11,6 +12,7 @@ import {  Router } from '@angular/router';
 export class MytodosComponent implements OnInit {
   myTodos: Todo[] = []
   filters:string[] = []
+  @Output() toggleMoal: EventEmitter<[Todo, number]> = new EventEmitter()
   constructor(private localStorage: LocalstorageService, private router: Router) { }
 
   ngOnInit(): void {
@@ -25,7 +27,8 @@ export class MytodosComponent implements OnInit {
   }
   // Delete function on delete button click
   onDeleteTodo(index: number){
-  this.localStorage.deleteTodo(index);
+  // this.localStorage.deleteTodo(index);
+    this.toggleMoal.emit([this.myTodos[index], index])
   }
 
   //Edit function on edit button click

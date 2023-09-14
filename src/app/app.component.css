@@ -1,8 +1,5 @@
-.navbar{
-  text-align: center;
-}
-.container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.app-container{
+  position: relative;
+  height: 100vh;
+  width: 100vw;
 }
