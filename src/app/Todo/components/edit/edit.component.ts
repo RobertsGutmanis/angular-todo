@@ -7,6 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImageService } from '../../services/image.service';
 import { PhotosReponse } from '../../Interfaces/photos-response.interface';
 import { throws } from 'assert';
+import {ImageResponse} from "../../Interfaces/image-response.interface";
 
 @Component({
   selector: 'app-edit',
@@ -14,7 +15,6 @@ import { throws } from 'assert';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-  // @Output() toggleModal: EventEmitter<ModalData> = new EventEmitter()
   activeTodo!: Todo;
   showModal: boolean = false;
   editFromGroup!: FormGroup;
@@ -36,7 +36,7 @@ export class EditComponent implements OnInit {
         this.todoImage = this.activeTodo.todoImage
       }
     }catch(error){
-      this.router.navigate(['/'])
+      this.router.navigate(['/']).then()
     }
 
     this.editFromGroup = new FormGroup({
@@ -52,7 +52,7 @@ export class EditComponent implements OnInit {
     if(this.editFromGroup.status !="INVALID"){
       const updatedTodo = this.editFromGroup.value
       this.storageService.updateTodo(updatedTodo, +this.index);
-      this.router.navigateByUrl('/')
+      this.router.navigate(['/']).then()
     }else{
       this.snackBar.open("Invalid form", 'Close')
     }
@@ -60,8 +60,6 @@ export class EditComponent implements OnInit {
 
   //Deletes todo from edit page
   onDelete(){
-    // this.storageService.deleteTodo(+this.index)
-    // this.router.navigateByUrl('/')
     this.showModal = true;
   }
   closeModal(event: boolean){

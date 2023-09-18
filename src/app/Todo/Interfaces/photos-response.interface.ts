@@ -10,6 +10,6 @@ export interface PhotosReponse{
   photographer_id: number;
   photographer_url: string;
   src: PhotosSrc;
-  url: number;
+  url: string;
   width: number;
 }

@@ -19,11 +19,12 @@ export class AddtodoComponent implements OnInit {
   availableImages: string[] = []
   activeImage: string = ""
   hasSelected = false;
+  optionValues: string[] = ["type1", "type2", "type3"];
   constructor(private snackBar: MatSnackBar, private imageService: ImageService, private localStorage: LocalstorageService) { }
 
   ngOnInit(): void {
     this.todoFormGroup = new FormGroup({
-      name: new FormControl('', Validators.required),
+      name: new FormControl('', [Validators.required, Validators.minLength(3) ]),
       imageFormGroup: new FormGroup({
         image: new FormControl('', Validators.required)
       }),
@@ -41,6 +42,7 @@ export class AddtodoComponent implements OnInit {
       this.localStorage.storeTodo(todo)
       this.activeImage = ""
       this.changeTab.emit(0)
+      this.todoFormGroup.reset()
       this.todoFormGroup.setValue({name: ' ', imageFormGroup: {image: ' '}, type: ' '})
     }
   }
@@ -72,6 +74,7 @@ export class AddtodoComponent implements OnInit {
   //Updates UI after user click change image
   onChangeImage(){
     this.activeImage = ""
+    this.hasSelected = false;
   }
   public get hasNoActiveImage(): boolean { return this.activeImage === ""; }
 }

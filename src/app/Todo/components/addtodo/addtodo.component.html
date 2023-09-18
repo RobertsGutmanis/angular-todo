@@ -2,15 +2,13 @@
   <h1>Add todo!</h1>
   <mat-form-field style="width: 30%">
     <mat-label>Todo name</mat-label>
-    <input matInput formControlName='name'>
+    <input matInput formControlName='name' class="todo-form-input">
   </mat-form-field>
 
   <mat-form-field style="width: 30%">
     <mat-label>Todo type</mat-label>
-    <mat-select formControlName="type">
-      <mat-option value="type1">Type 1</mat-option>
-      <mat-option value="type2">Type 2</mat-option>
-      <mat-option value="type3">Type 3</mat-option>
+    <mat-select formControlName="type" class="todo-form-input">
+      <mat-option *ngFor="let optionValue of optionValues" value="{{optionValue}}">{{optionValue}}</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -18,7 +16,7 @@
   <form class="image-form" formGroupName="imageFormGroup" (ngSubmit)="onSubmitImage()" *ngIf="hasNoActiveImage">
     <mat-form-field style="width: 30%">
       <mat-label>Image query</mat-label>
-      <input matInput formControlName="image">
+      <input matInput formControlName="image" class="todo-form-input">
     </mat-form-field>
     <button type="submit" mat-flat-button class="btn btn-secondary" *ngIf="availableImages.length==0">
       Search for an image!
@@ -39,4 +37,5 @@
     Add todo
   </button>
 </form>
+<ng-content></ng-content>
 

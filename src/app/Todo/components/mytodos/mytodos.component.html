@@ -6,7 +6,7 @@
     <input matInput (input)="onSearchTodo($event)" id="searchInput">
   </mat-form-field>
 
-  <h3>Filter by type:</h3>
+  <ng-content></ng-content>
   <span class="filter-section" style="margin-bottom: 1rem;">
     <mat-checkbox (click)="onFilter('type1')">Type1</mat-checkbox>
     <mat-checkbox (click)="onFilter('type2')">Type2</mat-checkbox>

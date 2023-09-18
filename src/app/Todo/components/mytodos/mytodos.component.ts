@@ -43,7 +43,7 @@ export class MytodosComponent implements OnInit {
     this.myTodos = filteredTodos
   }
 
-  //FIlters todos on checbox input
+  //Filters todos on checkbox input
   onFilter(type: string){
     let indexOfType = this.filters.indexOf(type)
     //Checks if filter is active
@@ -53,7 +53,7 @@ export class MytodosComponent implements OnInit {
       this.filters.push(type)
     }
 
-    //DIsplays filtered todos
+    //Displays filtered todos
     if(this.filters.length===0) {
       this.myTodos = this.localStorage.getTodos()
     }else{
