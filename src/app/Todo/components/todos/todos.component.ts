@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component,  OnInit} from '@angular/core';
 import { Todo } from '../../Interfaces/Todo.interface';
 
 @Component({
@@ -14,8 +14,6 @@ export class TodosComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
   changeTab(event: number){
     this.selectedTab = event
     console.log(this.selectedTab)
