@@ -1,4 +1,4 @@
-import { Component,  OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 import { Todo } from '../../Interfaces/Todo.interface';
 
 @Component({
@@ -6,10 +6,9 @@ import { Todo } from '../../Interfaces/Todo.interface';
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css']
 })
-export class TodosComponent implements OnInit {
+export class TodosComponent {
   selectedTab: number = 0;
   showModal: boolean = false;
-  todoID: number = 0;
   toDeleteTodo!: [Todo, number];
 
   constructor() { }
