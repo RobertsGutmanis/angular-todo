@@ -25,7 +25,7 @@ describe("Tests localstorage service", ()=>{
 
   it("should delete todo", ()=>{
     service.deleteTodo(0)
-    expect(localStorage.getItem("todos") ?? "").toBe('[]')
+    expect(service.getTodos()).toEqual([])
   })
 
   it("should edit todo", ()=>{
