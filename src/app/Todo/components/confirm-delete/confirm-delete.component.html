@@ -1,7 +1,7 @@
 <div class="confirm-modal">
     <div class="confirm-box">
         <div class="top-bar">
-            <button style="margin: 10px 10px 0 0;" class="btn btn-danger" (click)="onCloseModal()">Close!</button>
+            <button style="margin: 10px 10px 0 0;" class="btn btn-danger close-modal" (click)="onCloseModal()">Close!</button>
         </div>
         <div class="modal-content">
             <h2>You are about to delete</h2>
@@ -12,7 +12,7 @@
             </mat-card-header>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+            <button class="btn btn-danger delete-todo" (click)="onDelete()">Delete</button>
             <button class="btn btn-secondary" (click)="onCloseModal()">Cancel</button>
         </div>
     </div>

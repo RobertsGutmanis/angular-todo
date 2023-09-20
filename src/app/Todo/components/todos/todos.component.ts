@@ -11,11 +11,8 @@ export class TodosComponent {
   showModal: boolean = false;
   toDeleteTodo!: [Todo, number];
 
-  constructor() { }
-
   changeTab(event: number){
     this.selectedTab = event
-    console.log(this.selectedTab)
   }
   toggleModal(event: [Todo, number]){
     this.toDeleteTodo = event

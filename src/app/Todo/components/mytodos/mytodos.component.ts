@@ -37,10 +37,11 @@ export class MytodosComponent implements OnInit {
   }
 
   //Searches for todos on search input
+  filteredTodos!: Todo[]
   onSearchTodo(data:any){
     this.myTodos = this.localStorage.getTodos()
-    const filteredTodos: Todo[] = this.myTodos.filter((todo)=>todo.todoName.includes(data.target.value))
-    this.myTodos = filteredTodos
+    this.filteredTodos = this.myTodos.filter((todo)=>todo.todoName.includes(data.target.value))
+    this.myTodos = this.filteredTodos
   }
 
   //Filters todos on checkbox input

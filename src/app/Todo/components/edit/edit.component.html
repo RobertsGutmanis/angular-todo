@@ -1,9 +1,9 @@
-<form class="container" [formGroup]="editFromGroup" (ngSubmit)="onSubmit()">
+<form class="container" [formGroup]="editFromGroup" (ngSubmit)="onSubmit()" *ngIf="editFromGroup">
     <mat-card class="example-card">
         <mat-card-header>
           <h2>Edit todo!</h2>
         </mat-card-header>
-        <img mat-card-image class="card-image" src="{{todoImage}}">
+        <img alt="#" mat-card-image class="card-image" src="{{todoImage}}">
         <mat-card-content>
 
             <mat-form-field style="width: 100%">
@@ -31,7 +31,7 @@
             </button>
 
             <div class="image-grid" *ngIf="availableImages.length>0">
-                <img src="{{image}}" *ngFor="let image of availableImages" class="image" (click)="hasSelectedImage(image)">
+                <img alt="#" src="{{image}}" *ngFor="let image of availableImages" class="image" (click)="hasSelectedImage(image)">
             </div>
 
         </mat-card-content>
