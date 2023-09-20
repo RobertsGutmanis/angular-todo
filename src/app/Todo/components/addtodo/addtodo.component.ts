@@ -28,7 +28,7 @@ export class AddtodoComponent implements OnInit {
               private imageService: ImageService,
               private localStorage: LocalstorageService,
               private optionValuesService: OptionValueService) {
-    this.optionValues = this.optionValuesService.getOptionValues();
+    this.optionValues = this.optionValuesService.getOptionValues;
   }
 
   public get hasNoActiveImage(): boolean {

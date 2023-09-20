@@ -21,7 +21,7 @@ export class MytodosComponent implements OnInit {
   constructor(private localStorage: LocalstorageService,
               private router: Router,
               private optionValuesService: OptionValueService) {
-    this.optionValues = this.optionValuesService.getOptionValues()
+    this.optionValues = this.optionValuesService.getOptionValues
   }
 
   ngOnInit(): void {

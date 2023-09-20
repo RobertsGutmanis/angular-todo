@@ -29,8 +29,8 @@ export class EditComponent implements OnInit {
               private router: Router,
               private storageService: LocalstorageService,
               private optionValuesService: OptionValueService) {
-    this.index = this.activeRoute.snapshot.paramMap.get('id') ?? ''
-    this.optionValues = this.optionValuesService.getOptionValues()
+    this.index = this.activeRoute.snapshot.paramMap.get("id") ?? ""
+    this.optionValues = this.optionValuesService.getOptionValues
 
   }
 
