@@ -3,7 +3,8 @@
   flex-direction: column;
   align-items: flex-start;
 }
-.todo-form{
+
+.todo-form {
   align-self: center;
   width: 70vmax;
   margin-top: 1rem;
@@ -12,26 +13,31 @@
   justify-content: center;
   flex-direction: column;
 }
-.image-form{
+
+.image-form {
   width: inherit;
   align-items: center;
   display: flex;
   flex-direction: column;
   margin-bottom: .5rem;
 }
-.image-grid{
+
+.image-grid {
   width: 405px;
 }
-.image{
+
+.image {
   cursor: pointer;
   height: 133px;
   width: 133px;
   transition: all .3s;
 }
-.image:hover{
+
+.image:hover {
   transform: scale(1.06);
 }
-.active-image{
+
+.active-image {
   height: 150px;
   width: 150px;
 }

@@ -1,4 +1,4 @@
-export interface PhotosSrc{
+export interface PhotosSrc {
   landscape: string;
   large: string;
   large2x: string;

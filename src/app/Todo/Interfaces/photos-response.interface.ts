@@ -1,6 +1,6 @@
 import {PhotosSrc} from "./photos-src.interface";
 
-export interface PhotosReponse{
+export interface PhotosReponse {
   alt: string;
   avg_color: string;
   height: number;

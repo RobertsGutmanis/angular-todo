@@ -1,7 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
-*{overflow: none; scrollbar-width: none; scrollbar-width: none;}
-html, body { height: 100%; scrollbar-width: none;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+*{
+  scrollbar-width: none;
+  scrollbar-width: none;
+}
+html, body {
+  height: 100%;
+  scrollbar-width: none;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 ::-webkit-scrollbar {
     display: none;
+}
+.input-field-width{
+  width: 30%;
+}
+.input-field-width-large{
+  width: 100%;
 }

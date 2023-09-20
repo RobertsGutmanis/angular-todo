@@ -1,6 +1,6 @@
 import {PhotosReponse} from "./photos-response.interface";
 
-export interface ImageResponse{
+export interface ImageResponse {
   next_page: string;
   page: number;
   per_page: number;

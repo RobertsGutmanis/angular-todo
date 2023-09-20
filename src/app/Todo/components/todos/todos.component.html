@@ -1,6 +1,6 @@
-<mat-tab-group mat-stretch-tabs mat-align-tabs="center" [(selectedIndex)]="selectedTab">
+<mat-tab-group [(selectedIndex)]="selectedTab" mat-align-tabs="center" mat-stretch-tabs>
   <mat-tab label="My todos">
-    <app-mytodos (toggleMoal)="toggleModal($event)">
+    <app-mytodos (changeTabsEmitter)="changeTab($event)" (toggleModal)="toggleModal($event)">
       <span><strong>Filter by type</strong> (content projection)</span>
     </app-mytodos>
   </mat-tab>

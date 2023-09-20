@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ConfirmDeleteComponent} from "../confirm-delete/confirm-delete.component";
 import {DebugElement} from "@angular/core";
 import {Router} from "@angular/router";
@@ -7,7 +7,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {RouterTestingModule} from "@angular/router/testing";
 import {LocalstorageService} from "../../services/localstorage.service";
 import {EditComponent} from "./edit.component";
-describe("Tests confirm delete modal", ()=> {
+
+describe("Tests confirm delete modal", () => {
 
   let component: EditComponent;
   let fixture: ComponentFixture<EditComponent>
@@ -32,11 +33,14 @@ describe("Tests confirm delete modal", ()=> {
     fixture.detectChanges()
 
   })
-  it("Should fill input elements with active todo data", ()=>{
+  it("Should fill input elements with active todo data", () => {
     expect(component.ngOnInit).toHaveBeenCalled()
-    expect(component.editFromGroup.value).toEqual({...JSON.parse(localStorage.getItem("todos") ?? "")[0], imageQuery: ''})
+    expect(component.editFromGroup.value).toEqual({
+      ...JSON.parse(localStorage.getItem("todos") ?? "")[0],
+      imageQuery: ''
+    })
   })
-  it("Should submit edited todo and check if valid", ()=>{
+  it("Should submit edited todo and check if valid", () => {
     spyOn(component, 'onSubmit')
     component.editFromGroup.value.todoName = "editedTodo"
     fixture.detectChanges()
@@ -48,7 +52,7 @@ describe("Tests confirm delete modal", ()=> {
     expect(component.editFromGroup.status).toEqual("INVALID")
   })
 
-  it("should test hasSelectedImage() functionality", ()=>{
+  it("should test hasSelectedImage() functionality", () => {
     spyOn(component, "hasSelectedImage")
     component.editFromGroup.value.imageQuery = "cat"
     fixture.detectChanges()

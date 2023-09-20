@@ -1,39 +1,43 @@
-<form class="todo-form" (ngSubmit)="onSubmit()" [formGroup]="todoFormGroup" #formDirective="ngForm" >
+<form #formGroupDirective="ngForm" (ngSubmit)="onSubmit(formGroupDirective)" [formGroup]="todoFormGroup"
+      class="todo-form">
   <h1>Add todo!</h1>
-  <mat-form-field style="width: 30%">
+  <mat-form-field class="input-field-width">
     <mat-label>Todo name</mat-label>
-    <input matInput formControlName='name' class="todo-form-input">
+    <input class="todo-form-input" formControlName='name' matInput>
   </mat-form-field>
 
-  <mat-form-field style="width: 30%">
+  <mat-form-field class="input-field-width">
     <mat-label>Todo type</mat-label>
-    <mat-select formControlName="type" class="todo-form-input">
+    <mat-select class="todo-form-input" formControlName="type">
       <mat-option *ngFor="let optionValue of optionValues" value="{{optionValue}}">{{optionValue}}</mat-option>
     </mat-select>
   </mat-form-field>
 
 
-  <form class="image-form" formGroupName="imageFormGroup" (ngSubmit)="onSubmitImage()" *ngIf="hasNoActiveImage">
-    <mat-form-field style="width: 30%">
+  <form (ngSubmit)="onSubmitImage()" *ngIf="hasNoActiveImage" class="image-form" formGroupName="imageFormGroup">
+    <mat-form-field class="input-field-width">
       <mat-label>Image query</mat-label>
-      <input matInput formControlName="image" class="todo-form-input">
+      <input class="todo-form-input" formControlName="image" matInput>
     </mat-form-field>
-    <button type="submit" mat-flat-button class="btn btn-secondary" *ngIf="availableImages.length===0">
+    <button *ngIf="availableImages.length===0" class="btn btn-secondary" mat-flat-button type="submit">
       Search for an image!
     </button>
 
-    <div class="image-grid" *ngIf="availableImages.length>0">
-      <img src="{{image}}" *ngFor="let image of availableImages" class="image" (click)="hasSelectedImage(image)">
+    <div *ngIf="availableImages.length>0" class="image-grid">
+      <img (click)="hasSelectedImage(image)" *ngFor="let image of availableImages" [src]="image"
+           alt="Image unavailable!"
+           class="image">
     </div>
 
   </form>
-  <div *ngIf="!hasNoActiveImage" class="image-form" >
-    <img src="{{activeImage}}" class="active-image">
-    <button (click)="onChangeImage()" type="submit" mat-stroked-button class="btn btn-warning">
+  <div *ngIf="!hasNoActiveImage" class="image-form">
+    <img [src]="activeImage" alt="Image unavailable!" class="active-image">
+    <button (click)="onChangeImage()" class="btn btn-warning" mat-stroked-button type="submit">
       Change image
     </button>
   </div>
-  <button type="submit" mat-stroked-button class="btn btn-success form-submit" *ngIf="availableImages.length===0">
+
+  <button *ngIf="availableImages.length===0" class="btn btn-success form-submit" mat-stroked-button type="submit">
     Add todo
   </button>
 </form>

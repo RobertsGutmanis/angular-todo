@@ -1,28 +1,31 @@
-<div class="container">
+<div *ngIf="myTodos.length>=1" class="container">
   <h1>My todos!</h1>
 
-  <mat-form-field style="width: 30%;">
+  <mat-form-field class="input-field-width">
     <mat-label>Search todos</mat-label>
-    <input matInput (input)="onSearchTodo($event)" id="searchInput">
+    <input (input)="onSearchTodo($event)" id="searchInput" matInput>
   </mat-form-field>
 
   <ng-content></ng-content>
-  <span class="filter-section" style="margin-bottom: 1rem;">
-    <mat-checkbox (click)="onFilter('type1')">Type1</mat-checkbox>
-    <mat-checkbox (click)="onFilter('type2')">Type2</mat-checkbox>
-    <mat-checkbox (click)="onFilter('type3')">Type3</mat-checkbox>
+  <span class="filter-section">
+    <mat-checkbox (click)="onFilter(optionValue)"
+                  *ngFor="let optionValue of optionValues">{{optionValue}}</mat-checkbox>
   </span>
 
-  <mat-card *ngFor="let todo of myTodos; let i = index"  class="example-card">
+  <mat-card *ngFor="let todo of myTodos; let i = index" class="example-card">
     <mat-card-header>
-      <img mat-card-avatar class="example-header-image" src="{{todo.todoImage}}">
+      <img [src]="todo.todoImage" alt="Image unavailable!" class="example-header-image" mat-card-avatar>
       <mat-card-title>{{todo.todoName}}</mat-card-title>
       <mat-card-subtitle>{{todo.todoType}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
-      <button (click)="onDeleteTodo(i)" mat-button class="btn btn-danger delete-button">DELETE TODO</button>
-      <a (click)="onEditTodo(i)" mat-button class="btn btn-primary edit-button">EDIT TODO</a>
+      <button (click)="onDeleteTodo(i)" class="btn btn-danger delete-button" mat-button>DELETE TODO</button>
+      <a class="btn btn-primary edit-button" mat-button routerLink="edit/{{i}}">EDIT TODO</a>
     </mat-card-actions>
   </mat-card>
 
+</div>
+<div *ngIf="myTodos.length===0" class="container">
+  <h3>No todos found</h3>
+  <button (click)="changeTabs()" class="btn btn-primary">Add todo</button>
 </div>
