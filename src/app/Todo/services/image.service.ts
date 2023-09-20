@@ -1,6 +1,6 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ImageResponse} from "../Interfaces/image-response.interface";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {Injectable} from "@angular/core";
 import {environment} from "../../../environments/environment";
 
@@ -20,4 +20,5 @@ export class ImageService {
   fetchImages(query: string): Observable<ImageResponse> {
     return this.http.get<ImageResponse>(`${environment.ApiEndpoint}${query}&per_page=9`, httpOption)
   }
+  testSubject: Subject<boolean> = new Subject();
 }

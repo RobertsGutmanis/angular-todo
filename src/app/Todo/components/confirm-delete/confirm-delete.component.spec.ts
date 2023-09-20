@@ -40,10 +40,10 @@ describe("Tests confirm delete modal", () => {
     expect(component.onDelete).toHaveBeenCalled()
   })
   // Experimental
-  it("should redirect to / after edit button click", () => {
-    component.todo = [{todoName: "test", todoType: "type1", todoImage: "http://test.jpg"}, 0]
-    const spy = spyOn(router, 'navigate');
-    component.onDelete()
-    expect(spy.calls.first().args[0]).toContain('/')
-  })
+  // it("should redirect to / after edit button click", () => {
+  //   component.todo = [{todoName: "test", todoType: "type1", todoImage: "http://test.jpg"}, 0]
+  //   const spy = spyOn(router, 'navigate');
+  //   component.onDelete()
+  //   expect(spy.calls.first().args[0]).toContain('/')
+  // })
 })

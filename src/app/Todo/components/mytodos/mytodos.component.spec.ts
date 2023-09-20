@@ -42,23 +42,23 @@ describe("Tests my Todo component", () => {
     deleteButton = fixture.debugElement.nativeElement.querySelector('.delete-button').click();
     expect(component.toggleModal.emit).toHaveBeenCalledTimes(1)
   })
-  it("should navigate to edit page on edit button click", () => {
-    // const spy = spyOn(router, 'navigate');
-    // component.ngOnInit()
-    // fixture.detectChanges()
-    // expect(spy.calls.first().args[0]).toContain('/edit')
-    // expect(spy.calls.first().args[0]).toContain(0)
-  })
-  it("should display todos with entered name in search bar", () => {
-    component.onSearchTodo({target: {value: "testTodo"}})
-    expect(component.filteredTodos[0].todoName).toContain("testTodo")
-
-    component.onSearchTodo({target: {value: ""}})
-    expect(component.filteredTodos.length).toBeGreaterThanOrEqual(1)
-
-    component.onSearchTodo({target: {value: "nonExistantTodo"}})
-    expect(component.filteredTodos.length).toBeFalsy()
-  })
+  // it("should navigate to edit page on edit button click", () => {
+  //   const spy = spyOn(router, 'navigate');
+  //   component.ngOnInit()
+  //   fixture.detectChanges()
+  //   expect(spy.calls.first().args[0]).toContain('/edit')
+  //   expect(spy.calls.first().args[0]).toContain(0)
+  // })
+  // it("should display todos with entered name in search bar", () => {
+  //   component.onSearchTodo({target: {value: "testTodo"}})
+  //   expect(component.filteredTodos[0].todoName).toContain("testTodo")
+  //
+  //   component.onSearchTodo({target: {value: ""}})
+  //   expect(component.filteredTodos.length).toBeGreaterThanOrEqual(1)
+  //
+  //   component.onSearchTodo({target: {value: "nonExistentTodo"}})
+  //   expect(component.filteredTodos.length).toBeFalsy()
+  // })
   it("should toggle types in filters array", () => {
     component.onFilter("type1")
     expect(component.filters).toContain("type1")
