@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Todo} from "../../Interfaces/Todo.interface";
 import {LocalstorageService} from "../../services/localstorage.service";
-import {Router} from '@angular/router';
 import {OptionValueService} from "../../services/option-value.service";
 
 @Component({
@@ -15,11 +14,9 @@ export class MytodosComponent implements OnInit {
 
   myTodos: Todo[] = [];
   filters: string[] = [];
-  filteredTodos!: Todo[];
   optionValues: string[];
 
   constructor(private localStorage: LocalstorageService,
-              private router: Router,
               private optionValuesService: OptionValueService) {
     this.optionValues = this.optionValuesService.getOptionValues
   }
@@ -30,14 +27,14 @@ export class MytodosComponent implements OnInit {
     }
 
     this.localStorage.todoSubject.subscribe({
-      next: newTodos => {
+      next: (newTodos: Todo[]): void => {
         this.myTodos = newTodos;
       }
     });
   };
 
   // Delete function on delete button click
-  onDeleteTodo(index: number) {
+  onDeleteTodo(index: number): void {
     this.toggleModal.emit([this.myTodos[index], index]);
   };
 
@@ -55,7 +52,7 @@ export class MytodosComponent implements OnInit {
 
   //Filters todos on checkbox input
   onFilter(type: string): void {
-    let indexOfType = this.filters.indexOf(type);
+    let indexOfType: number = this.filters.indexOf(type);
 
     //Checks if filter is active
     if (indexOfType >= 0) {
@@ -71,10 +68,10 @@ export class MytodosComponent implements OnInit {
       let placeholderArray: Todo[] = [];
       this.filters.forEach((filter: string, index: number): void => {
 
-        let todoArray: Todo[] = this.localStorage.getTodos().filter((todo: Todo): void => {
-          todo.todoType.includes(filter);
+        let todoArray: Todo[] = this.localStorage.getTodos().filter((todo: Todo): boolean=> {
+          return todo.todoType.includes(filter);
         })
-
+        console.log(todoArray)
         placeholderArray.push(...todoArray);
 
       })

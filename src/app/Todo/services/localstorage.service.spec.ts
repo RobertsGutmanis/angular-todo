@@ -1,38 +1,40 @@
-import {LocalstorageService} from "./localstorage.service";
-import {TodoModel} from "../Models/Todo.model";
-import {Todo} from "../Interfaces/Todo.interface";
+import { TestBed } from '@angular/core/testing';
+import { LocalstorageService } from './localstorage.service'
+import { TodoModel } from '../Models/Todo.model'
 
-describe("Tests localstorage service", () => {
+describe('LocalstorageService', () => {
   let service: LocalstorageService;
   let todoModel: TodoModel;
-  beforeEach((): void => {
-    todoModel = new TodoModel("testTodo", "type1", "mockUrl")
-    localStorage.setItem("todos", JSON.stringify([todoModel.getTodo]))
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    todoModel = new TodoModel('testTodo', 'type1', 'mockUrl', 'alt');
+    localStorage.setItem('todos', JSON.stringify([todoModel.getTodo]));
     service = new LocalstorageService()
-  })
+  });
 
-  it("should expect to get todos", (): void  => {
-    expect(service.getTodos()).toEqual(JSON.parse(localStorage.getItem("todos") ?? ""))
-  })
+  it('should store todo', () => {
+    const newTodo: TodoModel = new TodoModel('New todo', 'type1', 'mockUrl', 'alt');
+    service.storeTodo(newTodo.getTodo);
+    expect(service.getTodos()).toHaveSize(2);
+  });
 
-  it("should expect to add todo", (): void  => {
-    const newTodo: TodoModel = new TodoModel("New todo", "type1", "mockUrl")
-    service.storeTodo(newTodo.getTodo)
-    expect(service.getTodos()).toHaveSize(2)
-  })
+  it('should get todos', () => {
+    expect(service.getTodos()).toEqual(JSON.parse(localStorage.getItem('todos') ?? ''));
+  });
 
-  it("should get one todo", (): void  => {
-    expect(service.getOneTodo(0)).toEqual(JSON.parse(localStorage.getItem("todos") ?? "")[0])
-  })
+  it('should get one todo', () => {
+    expect(service.getOneTodo(0)).toEqual(JSON.parse(localStorage.getItem('todos') ?? '')[0]);
+  });
 
-  it("should delete todo", (): void  => {
-    service.deleteTodo(0)
-    expect(service.getTodos()).toEqual([])
-  })
+  it('should delete todo', () => {
+    service.deleteTodo(0);
+    expect(service.getTodos()).toEqual([]);
+  });
 
-  it("should edit todo", (): void  => {
-    const updatedTodoModel: TodoModel = new TodoModel( "EditedName", "type3", "mockUrl")
-    service.updateTodo(updatedTodoModel.getTodo, 0)
-    expect(service.getOneTodo(0)).toEqual(updatedTodoModel.getTodo)
-  })
-})
+  it('should update todo', () => {
+    const updatedTodoModel: TodoModel = new TodoModel('EditedName', 'type3', 'mockUrl', 'alt');
+    service.updateTodo(updatedTodoModel.getTodo, 0);
+    expect(service.getOneTodo(0)).toEqual(updatedTodoModel.getTodo);
+  });
+});

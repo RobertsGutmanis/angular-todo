@@ -1,72 +1,45 @@
-import {fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {HttpClient} from '@angular/common/http';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {mockData} from '../../../Mocks/mock-api-data'
-import {ImageResponse} from "../Interfaces/image-response.interface";
-import {ImageService} from "./image.service";
+import { TestBed } from '@angular/core/testing';
+import {HttpClientTestingModule, HttpTestingController, TestRequest} from '@angular/common/http/testing';
+import { ImageService } from './image.service'
+import { ImageResponse } from '../Interfaces/image-response.interface';
+import { environment } from '../../../environments/environment.prod'
+import {mockData} from "../../../Mocks/mock-api-data";
+import {HttpErrorResponse} from "@angular/common/http";
 
-describe("Tests API GET method", async () => {
-  let httpClient: HttpClient;
-
-  const MockData = mockData;
-  let imageService: ImageService;
+const mockResponse: ImageResponse = mockData
+describe('ImageService', () => {
+  let service: ImageService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ImageService, HttpClient]
+      providers: [ImageService]
     });
-    TestBed.inject(ImageService);
-    httpClient = TestBed.inject(HttpClient);
-    imageService = new ImageService(httpClient);
-  })
+    service = TestBed.inject(ImageService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
 
-  it("should return data on service method call", (): void=>{
-    imageService.fetchImages("cat").subscribe({
-      next: (data: ImageResponse):void=>{
-        console.log("test")
-      }
-    })
-  })
-  it("should return error on empty query", ()=>{
+  afterEach(() => {
+    httpMock.verify();
+  });
 
-  })
-  // it("Should return data", () => {
-  //   httpClient.get<ImageResponse>(APIurl, httpOption).subscribe({
-  //     next: (data: ImageResponse) => {
-  //       expect(data).toEqual(MockData)
-  //     }
-  //   })
-  //
-  //   const req = httpClientTestingController.expectOne(APIurl)
-  //   expect(req.request.method).toEqual('GET')
-  //
-  //   req.flush(MockData)
-  //
-  // })
-  //
-  // it("Should handle empty query", () => {
-  //   httpClient.get<ImageResponse>(`${environment.ApiEndpoint}`, httpOption).subscribe({
-  //     next: (data: ImageResponse): void => {
-  //       expect(data.total_results).toBeUndefined()
-  //     }
-  //   })
-  //   const req = httpClientTestingController.expectOne(`${environment.ApiEndpoint}`)
-  //   req.flush("");
-  // })
-  //
-  // it('can handle network error', () => {
-  //   const mockError = new ProgressEvent('error')
-  //   httpClient.get<ImageResponse>(APIurl).subscribe({
-  //     next: () => fail("Should have failed with network error"),
-  //     error: (error: HttpErrorResponse) => {
-  //       expect(error.error).toBe(mockError)
-  //     }
-  //   })
-  //   const req = httpClientTestingController.expectOne(APIurl)
-  //   req.error(mockError)
-  // })
-  // afterEach(() => {
-  //   httpClientTestingController.verify()
-  // });
-})
+  it('should return an Observable', () : void => {
+    service.fetchImages('test').subscribe((images: ImageResponse): void => {
+      expect(images).toBe(mockData);
+    });
+
+    const req: TestRequest = httpMock.expectOne(`${environment.ApiEndpoint}test&per_page=9`);
+    expect(req.request.method).toBe('GET');
+    req.flush(mockResponse);
+  });
+
+  it('should handle error', () => {
+    service.fetchImages('').subscribe({
+      next: () => fail('should have failed with 404 error'),
+      error: (error: HttpErrorResponse) => expect(error.status).toEqual(404)
+    });
+    const req = httpMock.expectOne(`${environment.ApiEndpoint}&per_page=9`);
+    req.flush('404 error', { status: 404, statusText: 'Not Found' });
+  });
+});

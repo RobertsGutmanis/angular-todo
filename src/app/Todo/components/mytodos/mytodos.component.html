@@ -1,4 +1,5 @@
-<div *ngIf="myTodos.length>=1" class="container">
+<!--<div *ngIf="myTodos.length>=1" class="container">-->
+<div class="container">
   <h1>My todos!</h1>
 
   <mat-form-field class="input-field-width">
@@ -14,7 +15,7 @@
 
   <mat-card *ngFor="let todo of myTodos; let i = index" class="example-card">
     <mat-card-header>
-      <img [src]="todo.todoImage" alt="Image unavailable!" class="example-header-image" mat-card-avatar>
+      <img [src]="todo.todoImage" [alt]="todo.todoAlt" class="example-header-image" mat-card-avatar>
       <mat-card-title>{{todo.todoName}}</mat-card-title>
       <mat-card-subtitle>{{todo.todoType}}</mat-card-subtitle>
     </mat-card-header>
@@ -25,7 +26,7 @@
   </mat-card>
 
 </div>
-<div *ngIf="myTodos.length===0" class="container">
-  <h3>No todos found</h3>
-  <button (click)="changeTabs()" class="btn btn-primary">Add todo</button>
-</div>
+<!--<div *ngIf="myTodos.length===0" class="container">-->
+<!--  <h3>No todos found</h3>-->
+<!--  <button (click)="changeTabs()" class="btn btn-primary">Add todo</button>-->
+<!--</div>-->

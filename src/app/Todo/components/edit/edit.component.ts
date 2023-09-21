@@ -8,6 +8,7 @@ import {ImageService} from '../../services/image.service';
 import {PhotosReponse} from '../../Interfaces/photos-response.interface';
 import {OptionValueService} from "../../services/option-value.service";
 import {ImageResponse} from "../../Interfaces/image-response.interface";
+import {ImageAlt} from "../../Interfaces/Image-alt.interface";
 
 @Component({
   selector: 'app-edit',
@@ -19,8 +20,9 @@ export class EditComponent implements OnInit {
   showModal: boolean = false;
   editFromGroup!: FormGroup;
   index: string = "";
-  availableImages: string[] = [];
+  availableImages: ImageAlt[] = []
   todoImage: string = "";
+  todoAlt: string = "";
   optionValues: string[];
 
   constructor(private snackBar: MatSnackBar,
@@ -35,11 +37,13 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.activeRoute.snapshot.paramMap)
     //Sends user back to '/' if edit page doesnt exist
     try {
       if (+this.index >= 0) {
         this.activeTodo = this.storageService.getOneTodo(+this.index)
         this.todoImage = this.activeTodo.todoImage
+        this.todoAlt = this.activeTodo.todoAlt
 
         this.editFromGroup = new FormGroup({
           "todoName": new FormControl(this.activeTodo.todoName, [Validators.required, Validators.minLength(3)]),
@@ -75,6 +79,7 @@ export class EditComponent implements OnInit {
 
   //Searches for images after query input
   onSearch(): void {
+    console.log("test")
     this.imageService.fetchImages(this.editFromGroup.value.imageQuery).subscribe({
       next: (value: ImageResponse): void => {
 
@@ -83,7 +88,7 @@ export class EditComponent implements OnInit {
         }
 
         value.photos.forEach((photo: PhotosReponse): void => {
-          this.availableImages.push(photo.src.tiny);
+          this.availableImages.push({src: photo.src.tiny, alt: photo.alt==="" ? "No alt" : photo.alt});
         });
       },
       error: error => {
@@ -93,11 +98,13 @@ export class EditComponent implements OnInit {
   };
 
   //Updates UI after user chose an image
-  hasSelectedImage(image: string): void {
+  hasSelectedImage(image: string, alt: string): void {
+    console.log(image, alt)
     this.editFromGroup.setValue({
-      todoName: this.activeTodo.todoName,
-      todoType: this.activeTodo.todoType,
-      todoImage: image
+      todoName: this.editFromGroup.value.todoName,
+      todoType: this.editFromGroup.value.todoType,
+      todoImage: image,
+      imageQuery: ''
     });
     this.todoImage = this.editFromGroup.value.todoImage;
     this.availableImages = [];

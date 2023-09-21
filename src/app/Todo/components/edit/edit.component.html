@@ -3,7 +3,7 @@
     <mat-card-header>
       <h2>Edit todo!</h2>
     </mat-card-header>
-    <img [src]="todoImage" alt="Image unavailable!" class="card-image" mat-card-image>
+    <img [src]="todoImage" [alt]="todoAlt" class="card-image" mat-card-image>
     <mat-card-content>
 
       <mat-form-field class="input-field-width-large">
@@ -30,8 +30,8 @@
       </button>
 
       <div *ngIf="availableImages.length>0" class="image-grid">
-        <img (click)="hasSelectedImage(image)" *ngFor="let image of availableImages" [src]="image"
-             alt="Image unavailable!"
+        <img (click)="hasSelectedImage(image.src, image.alt)" *ngFor="let image of availableImages" [src]="image.src"
+             [alt]="image.alt"
              class="image">
       </div>
 

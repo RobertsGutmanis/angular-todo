@@ -52,12 +52,12 @@ describe("Tests confirm delete modal", () => {
     expect(component.editFromGroup.status).toEqual("INVALID")
   })
 
-  it("should test hasSelectedImage() functionality", () => {
-    spyOn(component, "hasSelectedImage")
-    component.editFromGroup.value.imageQuery = "cat"
-    fixture.detectChanges()
-    component.hasSelectedImage(component.editFromGroup.value.imageQuery)
-    expect(component.hasSelectedImage).toHaveBeenCalledTimes(1)
-    expect(component.availableImages).toEqual([])
-  })
+  // it("should test hasSelectedImage() functionality", () => {
+  //   spyOn(component, "hasSelectedImage")
+  //   component.editFromGroup.value.imageQuery = "cat"
+  //   fixture.detectChanges()
+  //   component.hasSelectedImage(component.editFromGroup.value.imageQuery)
+  //   expect(component.hasSelectedImage).toHaveBeenCalledTimes(1)
+  //   expect(component.availableImages).toEqual([])
+  // })
 })

@@ -6,7 +6,7 @@
     <div class="modal-content">
       <h2>You are about to delete</h2>
       <mat-card-header class="modal-todo">
-        <img [src]="todo[0].todoImage" alt="Image unavailable!" class="example-header-image" mat-card-avatar>
+        <img [src]="todo[0].todoImage" [alt]="todo[0].todoAlt" class="example-header-image" mat-card-avatar>
         <mat-card-title>{{todo[0].todoName}}</mat-card-title>
         <mat-card-subtitle>{{todo[0].todoType}}</mat-card-subtitle>
       </mat-card-header>

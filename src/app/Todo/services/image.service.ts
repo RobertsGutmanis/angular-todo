@@ -20,5 +20,4 @@ export class ImageService {
   fetchImages(query: string): Observable<ImageResponse> {
     return this.http.get<ImageResponse>(`${environment.ApiEndpoint}${query}&per_page=9`, httpOption)
   }
-  testSubject: Subject<boolean> = new Subject();
 }

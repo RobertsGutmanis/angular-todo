@@ -8,6 +8,7 @@ import {LocalstorageService} from "../../services/localstorage.service";
 import {ImageResponse} from "../../Interfaces/image-response.interface";
 import {HttpErrorResponse} from "@angular/common/http";
 import {OptionValueService} from "../../services/option-value.service";
+import {ImageAlt} from "../../Interfaces/Image-alt.interface";
 
 @Component({
   selector: 'app-addtodo',
@@ -18,8 +19,8 @@ export class AddtodoComponent implements OnInit {
   @Output() changeTab: EventEmitter<number> = new EventEmitter();
 
   todoFormGroup!: FormGroup;
-  availableImages: string[] = [];
-  activeImage: string = "";
+  availableImages: ImageAlt[] = [];
+  activeImage: ImageAlt = {src: "", alt: ""};
   hasSelected: boolean = false;
   todo!: Todo;
   optionValues: string[];
@@ -32,12 +33,12 @@ export class AddtodoComponent implements OnInit {
   }
 
   public get hasNoActiveImage(): boolean {
-    return this.activeImage === "";
+    return this.activeImage.src === ""
   }
 
   ngOnInit(): void {
     this.todoFormGroup = new FormGroup({
-      name: new FormControl("", Validators.required),
+      name: new FormControl("", [Validators.required, Validators.minLength(3)]),
       imageFormGroup: new FormGroup({
         image: new FormControl("", Validators.required)
       }),
@@ -47,17 +48,20 @@ export class AddtodoComponent implements OnInit {
 
   //Submits add todo form
   onSubmit(formDirective: FormGroupDirective): void {
+    console.log(this.activeImage)
     if (this.todoFormGroup.status == "INVALID" || !this.hasSelected) {
       this.snackBar.open("Invalid todo form", "Close");
     } else {
       this.todo = {
         todoName: this.todoFormGroup.value.name,
         todoType: this.todoFormGroup.value.type,
-        todoImage: this.todoFormGroup.value.imageFormGroup.image
+        todoImage: this.todoFormGroup.value.imageFormGroup.image,
+        todoAlt: this.activeImage.alt
       };
 
       this.localStorage.storeTodo(this.todo);
-      this.activeImage = "";
+      this.activeImage.src = ""
+      this.activeImage.alt = ""
       this.changeTab.emit(0);
       formDirective.resetForm();
     }
@@ -73,7 +77,7 @@ export class AddtodoComponent implements OnInit {
         }
 
         value.photos.forEach((photo: PhotosReponse): void => {
-          this.availableImages.push(photo.src.tiny)
+          this.availableImages.push({src: photo.src.tiny, alt: photo.alt})
         });
 
       },
@@ -84,16 +88,17 @@ export class AddtodoComponent implements OnInit {
   };
 
   //Updates UI after user chooses an image
-  hasSelectedImage(image: string): void {
+  hasSelectedImage(image: string, alt: string): void {
     this.hasSelected = true;
     this.availableImages = [];
-    this.activeImage = image;
+    this.activeImage = {src: image, alt: alt==="" ? "No alt" : alt};
     this.todoFormGroup.value.imageFormGroup.image = image;
   };
 
   //Updates UI after user click change image
   onChangeImage(): void {
-    this.activeImage = "";
+    this.activeImage.src = ""
+    this.activeImage.alt = ""
     this.hasSelected = false;
   };
 }
