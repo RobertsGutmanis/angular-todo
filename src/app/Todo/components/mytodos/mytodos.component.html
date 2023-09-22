@@ -1,4 +1,3 @@
-<!--<div *ngIf="myTodos.length>=1" class="container">-->
 <div class="container">
   <h1>My todos!</h1>
 
@@ -15,7 +14,7 @@
       >{{ optionValue }}</mat-checkbox
     >
   </span>
-
+<div class="" *ngIf="myTodos.length>=1">
   <mat-card *ngFor="let todo of myTodos; let i = index" class="example-card">
     <mat-card-header>
       <img
@@ -39,12 +38,13 @@
         class="btn btn-primary edit-button"
         mat-button
         routerLink="edit/{{ i }}"
-        >EDIT TODO</a
+      >EDIT TODO</a
       >
     </mat-card-actions>
   </mat-card>
 </div>
-<!--<div *ngIf="myTodos.length===0" class="container">-->
-<!--  <h3>No todos found</h3>-->
-<!--  <button (click)="changeTabs()" class="btn btn-primary">Add todo</button>-->
-<!--</div>-->
+</div>
+<div *ngIf="myTodos.length===0" class="container">
+  <h3>No todos found</h3>
+  <button (click)="changeTabs()" class="btn btn-primary add-todos">Add todo</button>
+</div>

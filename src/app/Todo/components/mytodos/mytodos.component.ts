@@ -43,11 +43,12 @@ export class MytodosComponent implements OnInit {
   //Searches for todos on search input
   onSearchTodo(data: any): void {
     this.myTodos = this.localStorage.getTodos();
-    this.myTodos = this.myTodos.filter((todo: Todo): void => {
-      todo.todoName.includes(data.target.value);
+    this.myTodos = this.myTodos.filter((todo: Todo): boolean => {
+      return todo.todoName.includes(data.target.value);
     });
   }
 
+  //Changes tabs on add todos button click
   changeTabs(): void {
     this.changeTabsEmitter.emit(1);
   }

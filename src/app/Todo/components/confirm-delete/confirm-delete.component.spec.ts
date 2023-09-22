@@ -40,15 +40,15 @@ describe('DeleteComponent', () => {
     const todoCount: number = storageService.getTodos().length;
     spyOn(component.closeModal, 'emit');
     deleteButton.click();
-    //CHeck if todo is deleted
+    //Check if todo is deleted
     expect(storageService.getTodos().length).toEqual(todoCount - 1);
     expect(component.closeModal.emit).toHaveBeenCalledWith(false);
   });
 
   it('should navigate user to / after delete button click', (): void => {
-    const routerstub: Router = TestBed.get(Router);
-    spyOn(routerstub, 'navigate');
+    const router: Router = TestBed.inject(Router)
+    spyOn(router, 'navigate');
     deleteButton.click();
-    expect(routerstub.navigate).toHaveBeenCalledWith(['/']);
+    expect(router.navigate).toHaveBeenCalledWith(['/']);
   });
 });

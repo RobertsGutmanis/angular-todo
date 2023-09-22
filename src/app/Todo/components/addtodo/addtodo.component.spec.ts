@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddtodoComponent } from './addtodo.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormGroupDirective, ReactiveFormsModule} from '@angular/forms';
 import { TodoModule } from '../../todo.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocalstorageService } from '../../services/localstorage.service';
@@ -15,7 +15,7 @@ import { TodoModel } from '../../Models/Todo.model';
 describe('AddtodoComponent', (): void => {
   let component: AddtodoComponent;
   let fixture: ComponentFixture<AddtodoComponent>;
-  let mockFormGroupDirective: any;
+  let mockFormGroupDirective: FormGroupDirective;
   let localStorage: LocalstorageService;
   let httpTestingController: HttpTestingController;
   let testTodo: TodoModel;

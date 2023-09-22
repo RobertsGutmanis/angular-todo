@@ -9,6 +9,7 @@ import { PhotosReponse } from '../../Interfaces/photos-response.interface';
 import { OptionValueService } from '../../services/option-value.service';
 import { ImageResponse } from '../../Interfaces/image-response.interface';
 import { ImageAlt } from '../../Interfaces/Image-alt.interface';
+import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-edit',
@@ -26,7 +27,7 @@ export class EditComponent implements OnInit {
   optionValues: string[];
 
   constructor(
-    private snackBar: MatSnackBar,
+    public snackBar: MatSnackBar,
     private imageService: ImageService,
     private activeRoute: ActivatedRoute,
     private router: Router,
@@ -62,7 +63,7 @@ export class EditComponent implements OnInit {
         });
       }
     } catch (error) {
-      this.router.navigate(['/']).then();
+      this.router.navigate(['/']);
     }
   }
 
@@ -70,7 +71,7 @@ export class EditComponent implements OnInit {
   onSubmit(): void {
     if (this.editFromGroup.status != 'INVALID') {
       this.storageService.updateTodo(this.editFromGroup.value, +this.index);
-      this.router.navigate(['/']).then();
+      this.router.navigate(['/']);
     } else {
       this.snackBar.open('Invalid form', 'Close');
     }
@@ -86,7 +87,7 @@ export class EditComponent implements OnInit {
   }
 
   //Searches for images after query input
-  onSearch(): void {
+  onSearch(): void{
     this.imageService
       .fetchImages(this.editFromGroup.value.imageQuery)
       .subscribe({
@@ -102,7 +103,7 @@ export class EditComponent implements OnInit {
             });
           });
         },
-        error: (error) => {
+        error: (error): void => {
           this.snackBar.open(error.error.code, 'Close');
         },
       });
@@ -117,6 +118,7 @@ export class EditComponent implements OnInit {
       imageQuery: '',
     });
     this.todoImage = this.editFromGroup.value.todoImage;
+    this.todoAlt = alt;
     this.availableImages = [];
   }
 }
