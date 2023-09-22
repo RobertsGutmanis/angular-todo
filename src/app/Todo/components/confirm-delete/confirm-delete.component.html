@@ -1,18 +1,27 @@
 <div class="confirm-modal">
   <div class="confirm-box">
     <div class="top-bar">
-      <button (click)="onCloseModal()" class="btn btn-danger close-button">Close!</button>
+      <button (click)="onCloseModal()" class="btn btn-danger close-button">
+        Close!
+      </button>
     </div>
     <div class="modal-content">
       <h2>You are about to delete</h2>
       <mat-card-header class="modal-todo">
-        <img [alt]="todo[0].todoAlt" [src]="todo[0].todoImage" class="example-header-image" mat-card-avatar>
-        <mat-card-title>{{todo[0].todoName}}</mat-card-title>
-        <mat-card-subtitle>{{todo[0].todoType}}</mat-card-subtitle>
+        <img
+          [alt]="todo[0].todoAlt"
+          [src]="todo[0].todoImage"
+          class="example-header-image"
+          mat-card-avatar
+        />
+        <mat-card-title>{{ todo[0].todoName }}</mat-card-title>
+        <mat-card-subtitle>{{ todo[0].todoType }}</mat-card-subtitle>
       </mat-card-header>
     </div>
     <div class="modal-footer">
-      <button (click)="onDelete()" class="btn btn-danger delete-button">Delete</button>
+      <button (click)="onDelete()" class="btn btn-danger delete-button">
+        Delete
+      </button>
       <button (click)="onCloseModal()" class="btn btn-secondary">Cancel</button>
     </div>
   </div>

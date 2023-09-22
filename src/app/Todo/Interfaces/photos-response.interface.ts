@@ -1,4 +1,4 @@
-import {PhotosSrc} from "./photos-src.interface";
+import { PhotosSrc } from './photos-src.interface';
 
 export interface PhotosReponse {
   alt: string;

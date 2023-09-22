@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-*{
+* {
   scrollbar-width: none;
   scrollbar-width: none;
 }
-html, body {
+html,
+body {
   height: 100%;
   scrollbar-width: none;
 }
@@ -12,11 +13,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
-.input-field-width{
+.input-field-width {
   width: 30%;
 }
-.input-field-width-large{
+.input-field-width-large {
   width: 100%;
 }

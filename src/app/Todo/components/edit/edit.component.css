@@ -21,7 +21,7 @@
   cursor: pointer;
   height: 118px;
   width: 118px;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .image:hover {

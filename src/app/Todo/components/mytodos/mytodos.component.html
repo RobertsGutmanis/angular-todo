@@ -4,27 +4,45 @@
 
   <mat-form-field class="input-field-width">
     <mat-label>Search todos</mat-label>
-    <input (input)="onSearchTodo($event)" id="searchInput" matInput>
+    <input (input)="onSearchTodo($event)" id="searchInput" matInput />
   </mat-form-field>
 
   <ng-content></ng-content>
   <span class="filter-section">
-    <mat-checkbox (click)="onFilter(optionValue)"
-                  *ngFor="let optionValue of optionValues">{{optionValue}}</mat-checkbox>
+    <mat-checkbox
+      (click)="onFilter(optionValue)"
+      *ngFor="let optionValue of optionValues"
+      >{{ optionValue }}</mat-checkbox
+    >
   </span>
 
   <mat-card *ngFor="let todo of myTodos; let i = index" class="example-card">
     <mat-card-header>
-      <img [alt]="todo.todoAlt" [src]="todo.todoImage" class="example-header-image" mat-card-avatar>
-      <mat-card-title>{{todo.todoName}}</mat-card-title>
-      <mat-card-subtitle>{{todo.todoType}}</mat-card-subtitle>
+      <img
+        [alt]="todo.todoAlt"
+        [src]="todo.todoImage"
+        class="example-header-image"
+        mat-card-avatar
+      />
+      <mat-card-title>{{ todo.todoName }}</mat-card-title>
+      <mat-card-subtitle>{{ todo.todoType }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
-      <button (click)="onDeleteTodo(i)" class="btn btn-danger delete-button" mat-button>DELETE TODO</button>
-      <a class="btn btn-primary edit-button" mat-button routerLink="edit/{{i}}">EDIT TODO</a>
+      <button
+        (click)="onDeleteTodo(i)"
+        class="btn btn-danger delete-button"
+        mat-button
+      >
+        DELETE TODO
+      </button>
+      <a
+        class="btn btn-primary edit-button"
+        mat-button
+        routerLink="edit/{{ i }}"
+        >EDIT TODO</a
+      >
     </mat-card-actions>
   </mat-card>
-
 </div>
 <!--<div *ngIf="myTodos.length===0" class="container">-->
 <!--  <h3>No todos found</h3>-->

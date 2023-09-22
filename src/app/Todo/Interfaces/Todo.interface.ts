@@ -1,6 +1,6 @@
 export interface Todo {
-  todoName: string
-  todoType: string
-  todoImage: string
+  todoName: string;
+  todoType: string;
+  todoImage: string;
   todoAlt: string;
 }

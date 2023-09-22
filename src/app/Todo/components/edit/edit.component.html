@@ -1,46 +1,74 @@
-<form (ngSubmit)="onSubmit()" *ngIf="editFromGroup" [formGroup]="editFromGroup" class="container">
+<form
+  (ngSubmit)="onSubmit()"
+  *ngIf="editFromGroup"
+  [formGroup]="editFromGroup"
+  class="container"
+>
   <mat-card class="example-card">
     <mat-card-header>
       <h2>Edit todo!</h2>
     </mat-card-header>
-    <img [alt]="todoAlt" [src]="todoImage" class="card-image" mat-card-image>
+    <img [alt]="todoAlt" [src]="todoImage" class="card-image" mat-card-image />
     <mat-card-content>
-
       <mat-form-field class="input-field-width-large">
         <mat-label>Todo</mat-label>
-        <input formControlName="todoName" matInput>
+        <input formControlName="todoName" matInput />
       </mat-form-field>
-      <br>
+      <br />
 
       <mat-form-field class="input-field-width-large">
         <mat-label>Todo type</mat-label>
         <mat-select formControlName="todoType">
-          <mat-option *ngFor="let optionValue of optionValues" [value]="optionValue">{{optionValue}}</mat-option>
+          <mat-option
+            *ngFor="let optionValue of optionValues"
+            [value]="optionValue"
+            >{{ optionValue }}</mat-option
+          >
         </mat-select>
       </mat-form-field>
-      <br>
+      <br />
 
       <mat-form-field class="input-field-width-large">
         <mat-label>Image query</mat-label>
-        <input formControlName="imageQuery" matInput>
+        <input formControlName="imageQuery" matInput />
       </mat-form-field>
-      <button (click)="onSearch()" *ngIf="availableImages.length===0" class="btn btn-secondary" mat-flat-button
-              type="button">
+      <button
+        (click)="onSearch()"
+        *ngIf="availableImages.length === 0"
+        class="btn btn-secondary"
+        mat-flat-button
+        type="button"
+      >
         Search for an image!
       </button>
 
-      <div *ngIf="availableImages.length>0" class="image-grid">
-        <img (click)="hasSelectedImage(image.src, image.alt)" *ngFor="let image of availableImages" [alt]="image.alt"
-             [src]="image.src"
-             class="image">
+      <div *ngIf="availableImages.length > 0" class="image-grid">
+        <img
+          (click)="hasSelectedImage(image.src, image.alt)"
+          *ngFor="let image of availableImages"
+          [alt]="image.alt"
+          [src]="image.src"
+          class="image"
+        />
       </div>
-
     </mat-card-content>
-    <mat-card-actions *ngIf="availableImages.length===0">
-      <button class="btn btn-success" mat-button type="submit">Save changes</button>
-      <button (click)="onDelete()" class="btn btn-danger" mat-button type="button">Delete todo</button>
+    <mat-card-actions *ngIf="availableImages.length === 0">
+      <button class="btn btn-success" mat-button type="submit">
+        Save changes
+      </button>
+      <button
+        (click)="onDelete()"
+        class="btn btn-danger"
+        mat-button
+        type="button"
+      >
+        Delete todo
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>
-<app-confirm-delete (closeModal)="closeModal($event)" *ngIf="showModal"
-                    [todo]="[activeTodo, +index]"></app-confirm-delete>
+<app-confirm-delete
+  (closeModal)="closeModal($event)"
+  *ngIf="showModal"
+  [todo]="[activeTodo, +index]"
+></app-confirm-delete>

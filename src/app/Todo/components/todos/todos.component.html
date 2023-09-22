@@ -1,6 +1,13 @@
-<mat-tab-group [(selectedIndex)]="selectedTab" mat-align-tabs="center" mat-stretch-tabs>
+<mat-tab-group
+  [(selectedIndex)]="selectedTab"
+  mat-align-tabs="center"
+  mat-stretch-tabs
+>
   <mat-tab label="My todos">
-    <app-mytodos (changeTabsEmitter)="changeTab($event)" (toggleModal)="toggleModal($event)">
+    <app-mytodos
+      (changeTabsEmitter)="changeTab($event)"
+      (toggleModal)="toggleModal($event)"
+    >
       <span><strong>Filter by type</strong> (content projection)</span>
     </app-mytodos>
   </mat-tab>
@@ -8,4 +15,8 @@
     <app-addtodo (changeTab)="changeTab($event)"></app-addtodo>
   </mat-tab>
 </mat-tab-group>
-<app-confirm-delete (closeModal)="closeModal($event)" *ngIf="showModal" [todo]="toDeleteTodo"></app-confirm-delete>
+<app-confirm-delete
+  (closeModal)="closeModal($event)"
+  *ngIf="showModal"
+  [todo]="toDeleteTodo"
+></app-confirm-delete>

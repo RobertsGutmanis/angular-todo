@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
-import {Todo} from '../../Interfaces/Todo.interface';
+import { Component } from '@angular/core';
+import { Todo } from '../../Interfaces/Todo.interface';
 
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
-  styleUrls: ['./todos.component.css']
+  styleUrls: ['./todos.component.css'],
 })
 export class TodosComponent {
   selectedTab: number = 0;

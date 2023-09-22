@@ -1,47 +1,58 @@
-import {ComponentFixture, fakeAsync, TestBed} from "@angular/core/testing";
-import {TodoModule} from "../../todo.module";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {RouterTestingModule} from "@angular/router/testing";
-import {LocalstorageService} from "../../services/localstorage.service";
-import {MytodosComponent} from "./mytodos.component";
-import {DebugElement} from "@angular/core";
-import {Router} from "@angular/router";
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { TodoModule } from '../../todo.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { LocalstorageService } from '../../services/localstorage.service';
+import { MytodosComponent } from './mytodos.component';
+import { DebugElement } from '@angular/core';
+import { Router } from '@angular/router';
 
-describe("Tests my Todo component", () => {
-
+describe('Tests my Todo component', () => {
   let component: MytodosComponent;
-  let fixture: ComponentFixture<MytodosComponent>
-  let deleteButton: DebugElement
+  let fixture: ComponentFixture<MytodosComponent>;
+  let deleteButton: DebugElement;
   let router: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MytodosComponent],
-      imports: [TodoModule, BrowserAnimationsModule, RouterTestingModule.withRoutes([])],
-      providers: [LocalstorageService]
-    })
-    localStorage.setItem("todos", JSON.stringify([{
-      "todoName": "testTodo", "todoType": "type1", "todoImage": "mockUrl"
-    }
-    ]))
-    fixture = TestBed.createComponent(MytodosComponent)
+      imports: [
+        TodoModule,
+        BrowserAnimationsModule,
+        RouterTestingModule.withRoutes([]),
+      ],
+      providers: [LocalstorageService],
+    });
+    localStorage.setItem(
+      'todos',
+      JSON.stringify([
+        {
+          todoName: 'testTodo',
+          todoType: 'type1',
+          todoImage: 'mockUrl',
+        },
+      ])
+    );
+    fixture = TestBed.createComponent(MytodosComponent);
     component = fixture.componentInstance;
 
     router = TestBed.inject(Router);
-
-
-  })
-  it("should get all todos on ngOnInit", fakeAsync(() => {
-    component.ngOnInit()
-    expect(component.myTodos).toEqual(JSON.parse(localStorage.getItem("todos") ?? ""))
-  }))
-  it("should emit event on delete button click", () => {
-    component.ngOnInit()
-    spyOn(component.toggleModal, 'emit')
-    fixture.detectChanges()
-    deleteButton = fixture.debugElement.nativeElement.querySelector('.delete-button').click();
-    expect(component.toggleModal.emit).toHaveBeenCalledTimes(1)
-  })
+  });
+  it('should get all todos on ngOnInit', fakeAsync(() => {
+    component.ngOnInit();
+    expect(component.myTodos).toEqual(
+      JSON.parse(localStorage.getItem('todos') ?? '')
+    );
+  }));
+  it('should emit event on delete button click', () => {
+    component.ngOnInit();
+    spyOn(component.toggleModal, 'emit');
+    fixture.detectChanges();
+    deleteButton = fixture.debugElement.nativeElement
+      .querySelector('.delete-button')
+      .click();
+    expect(component.toggleModal.emit).toHaveBeenCalledTimes(1);
+  });
   // it("should navigate to edit page on edit button click", () => {
   //   const spy = spyOn(router, 'navigate');
   //   component.ngOnInit()
@@ -59,17 +70,16 @@ describe("Tests my Todo component", () => {
   //   component.onSearchTodo({target: {value: "nonExistentTodo"}})
   //   expect(component.filteredTodos.length).toBeFalsy()
   // })
-  it("should toggle types in filters array", () => {
-    component.onFilter("type1")
-    expect(component.filters).toContain("type1")
-    component.onFilter("type1")
-    expect(component.filters).toEqual([])
-    component.onFilter("type2")
-    component.onFilter("type1")
-    expect(component.filters).toContain("type1")
-    expect(component.filters).toContain("type2")
-    component.onFilter("type2")
-    expect(component.filters.length).toEqual(1)
-  })
-})
-
+  it('should toggle types in filters array', () => {
+    component.onFilter('type1');
+    expect(component.filters).toContain('type1');
+    component.onFilter('type1');
+    expect(component.filters).toEqual([]);
+    component.onFilter('type2');
+    component.onFilter('type1');
+    expect(component.filters).toContain('type1');
+    expect(component.filters).toContain('type2');
+    component.onFilter('type2');
+    expect(component.filters.length).toEqual(1);
+  });
+});
