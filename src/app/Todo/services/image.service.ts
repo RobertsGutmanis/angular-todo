@@ -1,6 +1,6 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ImageResponse} from "../Interfaces/image-response.interface";
-import {Observable, Subject} from "rxjs";
+import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {environment} from "../../../environments/environment";
 

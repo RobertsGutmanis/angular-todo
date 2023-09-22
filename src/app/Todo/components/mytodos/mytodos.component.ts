@@ -68,10 +68,9 @@ export class MytodosComponent implements OnInit {
       let placeholderArray: Todo[] = [];
       this.filters.forEach((filter: string, index: number): void => {
 
-        let todoArray: Todo[] = this.localStorage.getTodos().filter((todo: Todo): boolean=> {
+        let todoArray: Todo[] = this.localStorage.getTodos().filter((todo: Todo): boolean => {
           return todo.todoType.includes(filter);
         })
-        console.log(todoArray)
         placeholderArray.push(...todoArray);
 
       })

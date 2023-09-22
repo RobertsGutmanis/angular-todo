@@ -25,7 +25,7 @@ export class AddtodoComponent implements OnInit {
   todo!: Todo;
   optionValues: string[];
 
-  constructor(private snackBar: MatSnackBar,
+  constructor(public snackBar: MatSnackBar,
               private imageService: ImageService,
               private localStorage: LocalstorageService,
               private optionValuesService: OptionValueService) {
@@ -48,7 +48,6 @@ export class AddtodoComponent implements OnInit {
 
   //Submits add todo form
   onSubmit(formDirective: FormGroupDirective): void {
-    console.log(this.activeImage)
     if (this.todoFormGroup.status == "INVALID" || !this.hasSelected) {
       this.snackBar.open("Invalid todo form", "Close");
     } else {
@@ -91,7 +90,7 @@ export class AddtodoComponent implements OnInit {
   hasSelectedImage(image: string, alt: string): void {
     this.hasSelected = true;
     this.availableImages = [];
-    this.activeImage = {src: image, alt: alt==="" ? "No alt" : alt};
+    this.activeImage = {src: image, alt: alt === "" ? "No alt" : alt};
     this.todoFormGroup.value.imageFormGroup.image = image;
   };
 

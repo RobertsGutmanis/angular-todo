@@ -1,49 +1,54 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {ConfirmDeleteComponent} from "./confirm-delete.component";
-import {TodoModule} from "../../todo.module";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {DebugElement} from "@angular/core";
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ConfirmDeleteComponent } from './confirm-delete.component';
 import {LocalstorageService} from "../../services/localstorage.service";
+import {TodoModule} from "../../todo.module";
 import {RouterTestingModule} from "@angular/router/testing";
+import {TodoModel} from "../../Models/Todo.model";
 import {Router} from "@angular/router";
 
-
-describe("Tests confirm delete modal", () => {
-
+describe("DeleteComponent", () => {
   let component: ConfirmDeleteComponent;
-  let fixture: ComponentFixture<ConfirmDeleteComponent>
-  let closeButton: DebugElement
-  let router: Router;
-
-  beforeEach(() => {
+  let fixture: ComponentFixture<ConfirmDeleteComponent>;
+  let closeButton: HTMLElement;
+  let deleteButton: HTMLElement;
+  let storageService: LocalstorageService;
+  let testTodo: TodoModel;
+  beforeEach((): void => {
     TestBed.configureTestingModule({
       declarations: [ConfirmDeleteComponent],
-      imports: [TodoModule, BrowserAnimationsModule, RouterTestingModule.withRoutes([])],
+      imports: [TodoModule, RouterTestingModule],
       providers: [LocalstorageService]
-    })
+    });
 
-    fixture = TestBed.createComponent(ConfirmDeleteComponent)
-    router = TestBed.inject(Router);
+    fixture = TestBed.createComponent(ConfirmDeleteComponent);
     component = fixture.componentInstance;
+    closeButton = fixture.nativeElement.querySelector('.close-button')
+    deleteButton = fixture.nativeElement.querySelector('.delete-button')
+    storageService = TestBed.inject(LocalstorageService)
+    testTodo = new TodoModel("test todo", "type1", "http://url.png", "alt")
+    component.todo = [testTodo.getTodo, 0]
+    storageService.storeTodo(testTodo.getTodo)
+  });
 
+  it("should test if modal is closed after close modal button click", (): void=>{
+    spyOn(component.closeModal, 'emit');
+    closeButton.click()
+    expect(component.closeModal.emit).toHaveBeenCalledWith(false);
   })
 
-  it("should close modal on close button click", () => {
-    spyOn(component.closeModal, 'emit')
-    closeButton = fixture.debugElement.nativeElement.querySelector('.close-modal').click();
+  it("should test if modal closes and todo is deleted on delete button click", (): void=>{
+    const todoCount: number = storageService.getTodos().length
+    spyOn(component.closeModal, 'emit');
+    deleteButton.click()
+    //CHeck if todo is deleted
+    expect(storageService.getTodos().length).toEqual(todoCount-1)
     expect(component.closeModal.emit).toHaveBeenCalledWith(false)
   })
 
-  it("should delete todo, close modal", () => {
-    spyOn(component, "onDelete")
-    closeButton = fixture.debugElement.nativeElement.querySelector('.delete-todo').click();
-    expect(component.onDelete).toHaveBeenCalled()
+  it("should navigate user to / after delete button click", (): void=>{
+    const routerstub: Router = TestBed.get(Router)
+    spyOn(routerstub, 'navigate');
+    deleteButton.click()
+    expect(routerstub.navigate).toHaveBeenCalledWith(['/'])
   })
-  // Experimental
-  // it("should redirect to / after edit button click", () => {
-  //   component.todo = [{todoName: "test", todoType: "type1", todoImage: "http://test.jpg"}, 0]
-  //   const spy = spyOn(router, 'navigate');
-  //   component.onDelete()
-  //   expect(spy.calls.first().args[0]).toContain('/')
-  // })
-})
+});

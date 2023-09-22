@@ -1,17 +1,17 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController, TestRequest} from '@angular/common/http/testing';
-import { ImageService } from './image.service'
-import { ImageResponse } from '../Interfaces/image-response.interface';
-import { environment } from '../../../environments/environment.prod'
+import {ImageService} from './image.service'
+import {ImageResponse} from '../Interfaces/image-response.interface';
+import {environment} from '../../../environments/environment.prod'
 import {mockData} from "../../../Mocks/mock-api-data";
 import {HttpErrorResponse} from "@angular/common/http";
 
 const mockResponse: ImageResponse = mockData
-describe('ImageService', () => {
+describe('ImageService', (): void => {
   let service: ImageService;
   let httpMock: HttpTestingController;
 
-  beforeEach(() => {
+  beforeEach((): void => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ImageService]
@@ -20,11 +20,11 @@ describe('ImageService', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => {
+  afterEach((): void => {
     httpMock.verify();
   });
 
-  it('should return an Observable', () : void => {
+  it('should return an Observable', (): void => {
     service.fetchImages('test').subscribe((images: ImageResponse): void => {
       expect(images).toBe(mockData);
     });
@@ -34,12 +34,12 @@ describe('ImageService', () => {
     req.flush(mockResponse);
   });
 
-  it('should handle error', () => {
+  it('should handle error', (): void => {
     service.fetchImages('').subscribe({
       next: () => fail('should have failed with 404 error'),
       error: (error: HttpErrorResponse) => expect(error.status).toEqual(404)
     });
-    const req = httpMock.expectOne(`${environment.ApiEndpoint}&per_page=9`);
-    req.flush('404 error', { status: 404, statusText: 'Not Found' });
+    const req: TestRequest = httpMock.expectOne(`${environment.ApiEndpoint}&per_page=9`);
+    req.flush('404 error', {status: 404, statusText: 'Not Found'});
   });
 });

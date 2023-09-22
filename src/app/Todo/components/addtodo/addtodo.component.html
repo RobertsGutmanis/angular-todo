@@ -24,14 +24,14 @@
     </button>
 
     <div *ngIf="availableImages.length>0" class="image-grid">
-      <img (click)="hasSelectedImage(image.src, image.alt)" *ngFor="let image of availableImages" [src]="image.src"
-           [alt]="image.alt"
+      <img (click)="hasSelectedImage(image.src, image.alt)" *ngFor="let image of availableImages" [alt]="image.alt"
+           [src]="image.src"
            class="image">
     </div>
 
   </form>
   <div *ngIf="!hasNoActiveImage" class="image-form">
-    <img [src]="activeImage.src" [alt]="activeImage.alt" class="active-image">
+    <img [alt]="activeImage.alt" [src]="activeImage.src" class="active-image">
     <button (click)="onChangeImage()" class="btn btn-warning" mat-stroked-button type="submit">
       Change image
     </button>

@@ -37,7 +37,6 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.activeRoute.snapshot.paramMap)
     //Sends user back to '/' if edit page doesnt exist
     try {
       if (+this.index >= 0) {
@@ -79,7 +78,6 @@ export class EditComponent implements OnInit {
 
   //Searches for images after query input
   onSearch(): void {
-    console.log("test")
     this.imageService.fetchImages(this.editFromGroup.value.imageQuery).subscribe({
       next: (value: ImageResponse): void => {
 
@@ -88,7 +86,7 @@ export class EditComponent implements OnInit {
         }
 
         value.photos.forEach((photo: PhotosReponse): void => {
-          this.availableImages.push({src: photo.src.tiny, alt: photo.alt==="" ? "No alt" : photo.alt});
+          this.availableImages.push({src: photo.src.tiny, alt: photo.alt === "" ? "No alt" : photo.alt});
         });
       },
       error: error => {
@@ -99,7 +97,6 @@ export class EditComponent implements OnInit {
 
   //Updates UI after user chose an image
   hasSelectedImage(image: string, alt: string): void {
-    console.log(image, alt)
     this.editFromGroup.setValue({
       todoName: this.editFromGroup.value.todoName,
       todoType: this.editFromGroup.value.todoType,

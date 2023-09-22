@@ -21,7 +21,7 @@ export class ConfirmDeleteComponent {
 
   onDelete(): void {
     this.localStorage.deleteTodo(this.todo[1]);
-    this.router.navigate(["/"]).then();
+    this.router.navigate(["/"]);
     this.closeModal.emit(false);
   };
 }

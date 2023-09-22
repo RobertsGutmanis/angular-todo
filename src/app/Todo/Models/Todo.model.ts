@@ -12,7 +12,8 @@ export class TodoModel {
     this._todoImage = todoImage;
     this._todoAlt = todoAlt
   }
-  get getTodo(): Todo{
+
+  get getTodo(): Todo {
     return {todoName: this._todoName, todoType: this._todoType, todoImage: this._todoImage, todoAlt: this._todoAlt}
   }
 
