@@ -9,7 +9,7 @@ import { PhotosReponse } from '../../Interfaces/photos-response.interface';
 import { OptionValueService } from '../../services/option-value.service';
 import { ImageResponse } from '../../Interfaces/image-response.interface';
 import { ImageAlt } from '../../Interfaces/Image-alt.interface';
-import {Observable, Subscription} from "rxjs";
+import {pipe, take} from "rxjs";
 
 @Component({
   selector: 'app-edit',
@@ -90,6 +90,7 @@ export class EditComponent implements OnInit {
   onSearch(): void{
     this.imageService
       .fetchImages(this.editFromGroup.value.imageQuery)
+      .pipe(take(1))
       .subscribe({
         next: (value: ImageResponse): void => {
           if (value.total_results === 0) {

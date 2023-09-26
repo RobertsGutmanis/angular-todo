@@ -14,6 +14,7 @@ import { ImageResponse } from '../../Interfaces/image-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { OptionValueService } from '../../services/option-value.service';
 import { ImageAlt } from '../../Interfaces/Image-alt.interface';
+import {take} from "rxjs";
 
 @Component({
   selector: 'app-addtodo',
@@ -77,6 +78,7 @@ export class AddtodoComponent implements OnInit {
   onSubmitImage(): void {
     this.imageService
       .fetchImages(this.todoFormGroup.value.imageFormGroup.image)
+      .pipe(take(1))
       .subscribe({
         next: (value: ImageResponse): void => {
           if (value.total_results === 0) {
