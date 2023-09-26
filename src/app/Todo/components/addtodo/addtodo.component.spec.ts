@@ -70,13 +70,13 @@ describe('AddtodoComponent', (): void => {
 
     expect(component.todoFormGroup.status).toEqual("VALID")
 
+    //Check if min length validation works
     component.todoFormGroup.get('name')?.setValue('12');
     expect(component.todoFormGroup.status).toBe("INVALID")
   });
 
   // Unit test for onSubmit method
   it('should process valid forms and call resetForm', (): void => {
-    const localStorageCount: number = localStorage.getTodos().length;
     // Fill form
     component.todoFormGroup.setValue(mockFormData)
     component.hasSelected = true;
@@ -91,13 +91,14 @@ describe('AddtodoComponent', (): void => {
   });
 
   it('should check behaviour if form is invalid', (): void => {
-    component.todoFormGroup.setValue(mockFormData)
     component.todoFormGroup.get('name')?.setValue('12');
     component.hasSelected = false;
 
     component.onSubmit(mockFormGroupDirective);
 
     expect(component.todoFormGroup.status).toBe("INVALID")
+
+    //Check if form was NOT Submitted
     expect(mockFormGroupDirective.resetForm).toHaveBeenCalledTimes(0);
   });
 
@@ -117,6 +118,7 @@ describe('AddtodoComponent', (): void => {
       'https://api.pexels.com/v1/search?query=$Test-image&per_page=9'
     );
     req.flush(mockResponse);
+    // Checks if requested data is stored in variable
     expect(component.availableImages.length).toBe(2);
   });
 

@@ -4,7 +4,6 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class LocalstorageService {
-  allTodos: Todo[] = [];
   todoSubject: Subject<Todo[]> = new Subject<Todo[]>();
 
   //Stores todos
@@ -14,8 +13,7 @@ export class LocalstorageService {
       todos.push(todo);
       localStorage.setItem('todos', JSON.stringify(todos));
     } else {
-      this.allTodos.push(todo);
-      localStorage.setItem('todos', JSON.stringify(this.allTodos));
+      localStorage.setItem('todos', JSON.stringify([todo]));
     }
     this.todoSubject.next(this.getTodos());
   }
@@ -33,7 +31,7 @@ export class LocalstorageService {
 
   //Deletes todo
   deleteTodo(index: number): void {
-    const todos = this.getTodos();
+    const todos: Todo[] = this.getTodos();
     todos.splice(index, 1);
     localStorage.setItem('todos', JSON.stringify(todos));
     this.todoSubject.next(this.getTodos());
@@ -41,7 +39,7 @@ export class LocalstorageService {
 
   // Updates todo
   updateTodo(todo: Todo, index: number): void {
-    const todos = this.getTodos();
+    const todos: Todo[] = this.getTodos();
     todos[index] = todo;
     localStorage.setItem('todos', JSON.stringify(todos));
   }

@@ -67,8 +67,7 @@ export class AddtodoComponent implements OnInit {
       };
 
       this.localStorage.storeTodo(this.todo);
-      this.activeImage.src = '';
-      this.activeImage.alt = '';
+      this.activeImage = {src: '', alt: ''}
       this.changeTab.emit(0);
       formDirective.resetForm();
     }
@@ -105,8 +104,7 @@ export class AddtodoComponent implements OnInit {
 
   //Updates UI after user click change image
   onChangeImage(): void {
-    this.activeImage.src = '';
-    this.activeImage.alt = '';
+    this.activeImage = {src: '', alt: ''};
     this.hasSelected = false;
   }
 }
