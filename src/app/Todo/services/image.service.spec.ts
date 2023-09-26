@@ -9,6 +9,7 @@ import { ImageResponse } from '../Interfaces/image-response.interface';
 import { environment } from '../../../environments/environment.prod';
 import { mockData } from '../../../Mocks/mock-api-data';
 import { HttpErrorResponse } from '@angular/common/http';
+import {take} from "rxjs";
 
 const mockResponse: ImageResponse = mockData;
 describe('ImageService', (): void => {
@@ -29,7 +30,7 @@ describe('ImageService', (): void => {
   });
 
   it('should return an Observable', (): void => {
-    service.fetchImages('test').subscribe((images: ImageResponse): void => {
+    service.fetchImages('test').pipe(take(1)).subscribe((images: ImageResponse): void => {
       expect(images).toBe(mockData);
     });
 
@@ -41,7 +42,7 @@ describe('ImageService', (): void => {
   });
 
   it('should handle error', (): void => {
-    service.fetchImages('').subscribe({
+    service.fetchImages('').pipe(take(1)).subscribe({
       next: () => fail('should have failed with 404 error'),
       error: (error: HttpErrorResponse) => expect(error.status).toEqual(404),
     });

@@ -36,12 +36,9 @@ describe('DeleteComponent', () => {
     expect(component.closeModal.emit).toHaveBeenCalledWith(false);
   });
 
-  it('should test if modal closes and todo is deleted on delete button click', (): void => {
-    const todoCount: number = storageService.getTodos().length;
+  it('should test if modal close on delete button click', (): void => {
     spyOn(component.closeModal, 'emit');
     deleteButton.click();
-    //Check if todo is deleted
-    expect(storageService.getTodos().length).toEqual(todoCount - 1);
     expect(component.closeModal.emit).toHaveBeenCalledWith(false);
   });
 

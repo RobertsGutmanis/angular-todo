@@ -2,7 +2,6 @@ import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { TodoModule } from '../../todo.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LocalstorageService } from '../../services/localstorage.service';
 import { MytodosComponent } from './mytodos.component';
 import { DebugElement } from '@angular/core';
 import { Router } from '@angular/router';
@@ -21,7 +20,6 @@ describe('Tests my Todo component', (): void => {
         BrowserAnimationsModule,
         RouterTestingModule.withRoutes([]),
       ],
-      providers: [LocalstorageService],
     });
     localStorage.setItem(
       'todos',

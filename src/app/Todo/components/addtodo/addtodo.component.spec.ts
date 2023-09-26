@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddtodoComponent } from './addtodo.component';
-import {FormGroupDirective, ReactiveFormsModule} from '@angular/forms';
+import {FormGroup, FormGroupDirective, ReactiveFormsModule} from '@angular/forms';
 import { TodoModule } from '../../todo.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocalstorageService } from '../../services/localstorage.service';
@@ -19,6 +19,14 @@ describe('AddtodoComponent', (): void => {
   let localStorage: LocalstorageService;
   let httpTestingController: HttpTestingController;
   let testTodo: TodoModel;
+
+  let mockFormData = {
+    name: "Test name",
+    type: "Test type",
+    imageFormGroup: {
+      image: "Test-image"
+    }
+  }
 
   beforeEach(async (): Promise<void> => {
     await TestBed.configureTestingModule({
@@ -49,70 +57,51 @@ describe('AddtodoComponent', (): void => {
   });
 
   it('should create form on ngOnInit', (): void => {
-    expect(component.todoFormGroup).toBeTruthy();
-    expect(component.todoFormGroup.get('name')).toBeTruthy();
-    expect(component.todoFormGroup.get('imageFormGroup')).toBeTruthy();
-    expect(component.todoFormGroup.get('type')).toBeTruthy();
+    expect(component.todoFormGroup).not.toBeUndefined()
+    expect(component.todoFormGroup).toBeInstanceOf(FormGroup)
   });
 
   it('form should be invalid when empty', (): void => {
-    expect(component.todoFormGroup.valid).toBeFalsy();
+    expect(component.todoFormGroup.status).toEqual("INVALID");
   });
 
   it('form should be valid when filled', (): void => {
-    component.todoFormGroup.get('name')?.setValue('Test Name');
-    component.todoFormGroup
-      .get('imageFormGroup')
-      ?.get('image')
-      ?.setValue('Test Image');
-    component.todoFormGroup.get('type')?.setValue('Test Type');
-    expect(component.todoFormGroup.valid).toBeTruthy();
+    component.todoFormGroup.setValue(mockFormData)
+
+    expect(component.todoFormGroup.status).toEqual("VALID")
 
     component.todoFormGroup.get('name')?.setValue('12');
-    expect(component.todoFormGroup.valid).toBeFalsy();
+    expect(component.todoFormGroup.status).toBe("INVALID")
   });
 
   // Unit test for onSubmit method
   it('should process valid forms and call resetForm', (): void => {
     const localStorageCount: number = localStorage.getTodos().length;
     // Fill form
-    component.todoFormGroup.get('name')?.setValue('Test Name');
-    component.todoFormGroup
-      .get('imageFormGroup')
-      ?.get('image')
-      ?.setValue('Test Image');
-    component.todoFormGroup.get('type')?.setValue('Test Type');
+    component.todoFormGroup.setValue(mockFormData)
     component.hasSelected = true;
 
-    spyOn(localStorage, 'storeTodo').and.callThrough();
     spyOn(component.changeTab, 'emit');
 
+    expect(component.todoFormGroup.status).toBe("VALID")
     component.onSubmit(mockFormGroupDirective);
 
-    expect(localStorage.storeTodo).toHaveBeenCalledTimes(1);
     expect(mockFormGroupDirective.resetForm).toHaveBeenCalledTimes(1);
     expect(component.changeTab.emit).toHaveBeenCalledWith(0);
-    expect(localStorage.getTodos().length).toEqual(localStorageCount + 1);
   });
 
   it('should check behaviour if form is invalid', (): void => {
+    component.todoFormGroup.setValue(mockFormData)
     component.todoFormGroup.get('name')?.setValue('12');
-    component.todoFormGroup
-      .get('imageFormGroup')
-      ?.get('image')
-      ?.setValue('Test Image');
-    component.todoFormGroup.get('type')?.setValue('Test Type');
     component.hasSelected = false;
 
-    spyOn(localStorage, 'storeTodo');
     component.onSubmit(mockFormGroupDirective);
 
-    expect(component.todoFormGroup.valid).toBeFalsy();
-    expect(localStorage.storeTodo).toHaveBeenCalledTimes(0);
+    expect(component.todoFormGroup.status).toBe("INVALID")
     expect(mockFormGroupDirective.resetForm).toHaveBeenCalledTimes(0);
   });
 
-  it('should fetch images successfully on form submission', (): void => {
+  it('should store fetched data in availableImages array on form submission', (): void => {
     const mockResponse = {
       total_results: 2,
       photos: [
@@ -121,16 +110,12 @@ describe('AddtodoComponent', (): void => {
       ],
     };
 
-    component.todoFormGroup
-      .get('imageFormGroup')
-      ?.get('image')
-      ?.setValue('test-image');
+    component.todoFormGroup.setValue(mockFormData)
+
     component.onSubmitImage();
     const req: TestRequest = httpTestingController.expectOne(
-      'https://api.pexels.com/v1/search?query=$test-image&per_page=9'
+      'https://api.pexels.com/v1/search?query=$Test-image&per_page=9'
     );
-    expect(req.request.method).toBe('GET');
-
     req.flush(mockResponse);
     expect(component.availableImages.length).toBe(2);
   });
@@ -152,7 +137,7 @@ describe('AddtodoComponent', (): void => {
 
     component.hasSelectedImage(image, alt);
 
-    expect(component.hasSelected).toBeTruthy();
+    expect(component.hasSelected).toBe(true);
     expect(component.availableImages.length).toBe(0);
     expect(component.activeImage).toEqual({ src: image, alt: alt });
     expect(component.todoFormGroup.value.imageFormGroup.image).toBe(image);

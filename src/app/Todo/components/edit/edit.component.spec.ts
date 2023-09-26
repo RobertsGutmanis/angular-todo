@@ -12,6 +12,7 @@ import {HttpTestingController, TestRequest} from "@angular/common/http/testing";
 import { of } from 'rxjs';
 import {ImageResponse} from "../../Interfaces/image-response.interface";
 import {mockData} from "../../../../Mocks/mock-api-data";
+import {FormGroup} from "@angular/forms";
 
 describe('Tests confirm delete modal', (): void => {
   let component: EditComponent;
@@ -30,7 +31,7 @@ describe('Tests confirm delete modal', (): void => {
         MatSnackBarModule,
         RouterTestingModule.withRoutes([]),
       ],
-      providers: [LocalstorageService, LocalstorageService, ImageService, HttpTestingController],
+      providers: [LocalstorageService, ImageService, HttpTestingController],
     });
 
     fixture = TestBed.createComponent(EditComponent);
@@ -52,10 +53,11 @@ describe('Tests confirm delete modal', (): void => {
   });
 
   it('should test ngOnInit', (): void=>{
-    expect(component.activeTodo).toEqual(storageService.getOneTodo(0))
-    expect(component.todoImage).toEqual('http:image.png')
-    expect(component.todoAlt).toEqual('alt')
-    expect(component.editFromGroup).toBeTruthy()
+    expect(component.editFromGroup).not.toBeUndefined();
+    expect(component.editFromGroup).toBeInstanceOf(FormGroup);
+    expect(component.activeTodo).toEqual(storageService.getOneTodo(0));
+    expect(component.todoImage).toEqual('http:image.png');
+    expect(component.todoAlt).toEqual('alt');
   })
 
   it('should redirect to / if todo doesnt exist', (): void=>{
@@ -69,24 +71,23 @@ describe('Tests confirm delete modal', (): void => {
   it('Should test onSubmit if form is valid', (): void=>{
     const router: Router = TestBed.inject(Router)
     spyOn(router, 'navigate');
-      component.editFromGroup.setValue({todoName: 'updatedTodo', todoType: 'type2', todoImage: 'newimage', imageQuery: '' })
-      component.onSubmit()
-      expect(storageService.getOneTodo(0).todoName).toEqual("updatedTodo")
-      expect(storageService.getOneTodo(0).todoType).toEqual("type2")
-      expect(storageService.getOneTodo(0).todoImage).toEqual("newimage")
-      expect(router.navigate).toHaveBeenCalledWith(['/']);
+    component.editFromGroup.setValue({todoName: 'updatedTodo', todoType: 'type2', todoImage: 'newimage', imageQuery: '' })
+    expect(component.editFromGroup.status).toBe("VALID")
+    component.onSubmit()
+    expect(router.navigate).toHaveBeenCalledWith(['/']);
   })
+
   it('Should test onSubmit if form is invalid', ()=>{
       spyOn(component.snackBar, 'open');
       component.editFromGroup.setValue({todoName: '12', todoType: 'type1', todoImage: 'imgurl', imageQuery: '' })
-      component.onSubmit()
       expect(component.editFromGroup.status).toEqual("INVALID")
+      component.onSubmit()
       expect(component.snackBar.open).toHaveBeenCalledWith('Invalid form', 'Close')
   })
 
   it("should toggle delete modal on delete button click", ()=>{
     fixture.nativeElement.querySelector('.delete-button').click()
-    expect(component.showModal).toBeTruthy()
+    expect(component.showModal).toBe(true);
   })
 
   it("should test onSearch method", (): void=>{

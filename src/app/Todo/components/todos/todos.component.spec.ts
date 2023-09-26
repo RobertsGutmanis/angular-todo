@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TodoModule } from '../../todo.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LocalstorageService } from '../../services/localstorage.service';
 import { TodosComponent } from './todos.component';
 import { TodoModel } from "../../Models/Todo.model";
 import { Todo } from "../../Interfaces/Todo.interface";
@@ -15,7 +14,6 @@ describe('Test modal and tab functionality', (): void => {
     TestBed.configureTestingModule({
       declarations: [TodosComponent],
       imports: [TodoModule, BrowserAnimationsModule, RouterTestingModule],
-      providers: [LocalstorageService],
     });
 
     fixture = TestBed.createComponent(TodosComponent);
