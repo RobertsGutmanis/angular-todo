@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Todo } from '../../Interfaces/Todo.interface';
 import { LocalstorageService } from '../../services/localstorage.service';
 import { OptionValueService } from '../../services/option-value.service';
@@ -8,7 +8,7 @@ import { OptionValueService } from '../../services/option-value.service';
   templateUrl: './mytodos.component.html',
   styleUrls: ['./mytodos.component.css'],
 })
-export class MytodosComponent implements OnInit, OnDestroy {
+export class MytodosComponent implements OnInit {
   @Output() toggleModal: EventEmitter<[Todo, number]> = new EventEmitter();
   @Output() changeTabsEmitter: EventEmitter<number> = new EventEmitter();
 
@@ -79,9 +79,5 @@ export class MytodosComponent implements OnInit, OnDestroy {
       });
       this.myTodos = placeholderArray;
     }
-  }
-
-  ngOnDestroy(): void{
-    this.localStorage.todoSubject.unsubscribe()
   }
 }
